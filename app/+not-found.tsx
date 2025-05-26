@@ -1,32 +1,34 @@
-import { Link, Stack } from 'expo-router';
-import { StyleSheet } from 'react-native';
-
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { Link, Stack } from "expo-router";
+import { StyleSheet, View, useColorScheme } from "react-native";
+import { PaperProvider, Text } from "react-native-paper";
+import { DarkPaperTheme, LightPaperTheme } from "../constants/PaperTheme";
 
 export default function NotFoundScreen() {
-  return (
-    <>
-      <Stack.Screen options={{ title: 'Oops!' }} />
-      <ThemedView style={styles.container}>
-        <ThemedText type="title">This screen does not exist.</ThemedText>
-        <Link href="/" style={styles.link}>
-          <ThemedText type="link">Go to home screen!</ThemedText>
-        </Link>
-      </ThemedView>
-    </>
-  );
+	const colorScheme = useColorScheme();
+	const paperTheme =
+		colorScheme === "dark" ? DarkPaperTheme : LightPaperTheme;
+
+	return (
+		<PaperProvider theme={paperTheme}>
+			<View style={styles.container}>
+				<Stack.Screen options={{ title: "Oops!" }} />
+				<Link href="/" style={styles.link}>
+					<Text>Go to home screen!</Text>
+				</Link>
+			</View>
+		</PaperProvider>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
+	container: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
+		padding: 20,
+	},
+	link: {
+		marginTop: 15,
+		paddingVertical: 15,
+	},
 });
