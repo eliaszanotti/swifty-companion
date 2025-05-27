@@ -1,18 +1,12 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { CommonActions } from "@react-navigation/native";
+import { Tabs } from "expo-router";
 import React from "react";
 import { BottomNavigation, Icon, Provider } from "react-native-paper";
-
-import SearchScreen from "./index";
-import ProfileScreen from "./profile";
-// import LoginScreen from "./login"; // Importez le nouvel écran de connexion
-
-const Tab = createBottomTabNavigator();
 
 export default function TabLayout() {
 	return (
 		<Provider>
-			<Tab.Navigator
+			<Tabs
 				screenOptions={{
 					headerShown: false,
 				}}
@@ -60,9 +54,8 @@ export default function TabLayout() {
 					/>
 				)}
 			>
-				<Tab.Screen
+				<Tabs.Screen
 					name="index"
-					component={SearchScreen}
 					options={{
 						title: "Recherche",
 						tabBarIcon: ({ color, focused }) => (
@@ -74,9 +67,8 @@ export default function TabLayout() {
 						),
 					}}
 				/>
-				<Tab.Screen
+				<Tabs.Screen
 					name="profile"
-					component={ProfileScreen}
 					options={{
 						title: "Profil",
 						tabBarIcon: ({ color, focused }) => (
@@ -88,22 +80,7 @@ export default function TabLayout() {
 						),
 					}}
 				/>
-				{/* Ajoutez le nouvel onglet de connexion ici */}
-				{/* <Tab.Screen
-					name="login"
-					component={LoginScreen}
-					options={{
-						title: "Connexion",
-						tabBarIcon: ({ color, focused }) => (
-							<Icon
-								source={focused ? "login" : "login-variant"} // Icône de connexion
-								color={color}
-								size={24}
-							/>
-						),
-					}}
-				/> */}
-			</Tab.Navigator>
+			</Tabs>
 		</Provider>
 	);
 }
