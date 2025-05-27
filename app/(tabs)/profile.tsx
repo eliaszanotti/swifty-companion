@@ -1,6 +1,7 @@
+import PaperSafeAreaView from "@/components/PaperSafeAreaView";
 import { Redirect } from "expo-router";
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { Button, useTheme } from "react-native-paper";
 
 export default function ProfileScreen() {
@@ -12,7 +13,7 @@ export default function ProfileScreen() {
 	}
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<PaperSafeAreaView style={styles.container}>
 			<Text style={[styles.title, { color: theme.colors.onSurface }]}>
 				Profile
 			</Text>
@@ -23,7 +24,7 @@ export default function ProfileScreen() {
 			<Button mode="contained" onPress={() => setIsLoggedIn(false)}>
 				Déconnexion
 			</Button>
-		</SafeAreaView>
+		</PaperSafeAreaView>
 	);
 }
 

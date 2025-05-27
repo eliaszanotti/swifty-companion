@@ -1,10 +1,11 @@
+import PaperSafeAreaView from "@/components/PaperSafeAreaView";
 import React from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 
 export default function LoginScreen() {
 	return (
-		<SafeAreaView style={[styles.container]}>
+		<PaperSafeAreaView style={[styles.container]}>
 			<Text style={[styles.title]}>Connexion</Text>
 			<TextInput
 				label="Identifiant"
@@ -24,7 +25,7 @@ export default function LoginScreen() {
 			<Button mode="contained" onPress={() => {}}>
 				Se connecter
 			</Button>
-		</SafeAreaView>
+		</PaperSafeAreaView>
 	);
 }
 
