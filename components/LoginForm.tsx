@@ -1,9 +1,16 @@
 import PaperSafeAreaView from "@/components/PaperSafeAreaView";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 
-export default function LoginScreen() {
+interface LoginFormProps {
+	onLogin: () => void;
+}
+
+export default function LoginForm({ onLogin }: LoginFormProps) {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+
 	return (
 		<PaperSafeAreaView style={styles.container}>
 			<Text style={styles.title}>Connexion</Text>
@@ -11,18 +18,18 @@ export default function LoginScreen() {
 				label="Identifiant"
 				mode="outlined"
 				style={styles.input}
-				// value={username}
-				// onChangeText={setUsername}
+				value={username}
+				onChangeText={setUsername}
 			/>
 			<TextInput
 				label="Mot de passe"
 				mode="outlined"
 				secureTextEntry
 				style={styles.input}
-				// value={password}
-				// onChangeText={setPassword}
+				value={password}
+				onChangeText={setPassword}
 			/>
-			<Button mode="contained" onPress={() => {}}>
+			<Button mode="contained" onPress={onLogin}>
 				Se connecter
 			</Button>
 		</PaperSafeAreaView>

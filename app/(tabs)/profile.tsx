@@ -1,5 +1,5 @@
 import PaperSafeAreaView from "@/components/PaperSafeAreaView";
-import { Redirect } from "expo-router";
+import LoginForm from "../../components/LoginForm";
 import React, { useState } from "react";
 import { StyleSheet, Text } from "react-native";
 import { Button, useTheme } from "react-native-paper";
@@ -9,7 +9,7 @@ export default function ProfileScreen() {
 	const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 	if (!isLoggedIn) {
-		return <Redirect href="/login" />;
+		return <LoginForm onLogin={() => setIsLoggedIn(true)} />;
 	}
 
 	return (
