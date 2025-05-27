@@ -4,7 +4,7 @@ import {
 	ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -28,6 +28,10 @@ export default function RootLayout() {
 			>
 				<Stack>
 					<Stack.Screen
+						name="index"
+						options={{ headerShown: false }}
+					/>
+					<Stack.Screen
 						name="(tabs)"
 						options={{ headerShown: false }}
 					/>
@@ -37,4 +41,8 @@ export default function RootLayout() {
 			</ThemeProvider>
 		</SafeAreaProvider>
 	);
+}
+
+export function Index() {
+	return <Redirect href="/(tabs)" />;
 }
