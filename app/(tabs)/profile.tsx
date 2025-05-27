@@ -1,15 +1,16 @@
+import { useAuth } from "@/auth/AuthContext";
 import LoginForm from "@/components/LoginForm";
 import PaperSafeAreaView from "@/components/PaperSafeAreaView";
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text } from "react-native";
 import { Button, useTheme } from "react-native-paper";
 
 export default function ProfileScreen() {
 	const theme = useTheme();
-	const [isLoggedIn, setIsLoggedIn] = useState(true);
+	const { isLoggedIn, login, logout } = useAuth();
 
 	if (!isLoggedIn) {
-		return <LoginForm onLogin={() => setIsLoggedIn(true)} />;
+		return <LoginForm onLogin={login} />;
 	}
 
 	return (
@@ -21,7 +22,7 @@ export default function ProfileScreen() {
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
 				eiusmod tempor incididunt ut labore et dolore magna aliqua.
 			</Text>
-			<Button mode="contained" onPress={() => setIsLoggedIn(false)}>
+			<Button mode="contained" onPress={logout}>
 				Déconnexion
 			</Button>
 		</PaperSafeAreaView>

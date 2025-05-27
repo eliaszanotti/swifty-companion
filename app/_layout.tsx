@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/auth/AuthContext";
 import { DarkPaperTheme, LightPaperTheme } from "@/constants/PaperTheme";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import {
@@ -27,25 +28,29 @@ export default function RootLayout() {
 	return (
 		<SafeAreaProvider>
 			<PaperProvider theme={paperTheme}>
-				<ThemeProvider
-					value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-				>
-					<Stack>
-						<Stack.Screen
-							name="index"
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="(tabs)"
-							options={{ headerShown: false }}
-						/>
-						<Stack.Screen
-							name="login"
-							options={{ headerShown: false }}
-						/>
-					</Stack>
-					<StatusBar style="auto" />
-				</ThemeProvider>
+				<AuthProvider>
+					<ThemeProvider
+						value={
+							colorScheme === "dark" ? DarkTheme : DefaultTheme
+						}
+					>
+						<Stack>
+							<Stack.Screen
+								name="index"
+								options={{ headerShown: false }}
+							/>
+							<Stack.Screen
+								name="(tabs)"
+								options={{ headerShown: false }}
+							/>
+							<Stack.Screen
+								name="login"
+								options={{ headerShown: false }}
+							/>
+						</Stack>
+						<StatusBar style="auto" />
+					</ThemeProvider>
+				</AuthProvider>
 			</PaperProvider>
 		</SafeAreaProvider>
 	);
