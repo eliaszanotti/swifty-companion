@@ -1,5 +1,5 @@
+import LoginForm from "@/components/LoginForm";
 import PaperSafeAreaView from "@/components/PaperSafeAreaView";
-import LoginForm from "../../components/LoginForm";
 import React, { useState } from "react";
 import { StyleSheet, Text } from "react-native";
 import { Button, useTheme } from "react-native-paper";
