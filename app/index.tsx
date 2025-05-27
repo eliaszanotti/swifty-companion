@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { StyleSheet, View, useColorScheme } from "react-native";
+import { StyleSheet, useColorScheme } from "react-native";
 import { PaperProvider, Searchbar } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { DarkPaperTheme, LightPaperTheme } from "../constants/PaperTheme";
 
 export default function SearchScreen() {
@@ -11,13 +12,13 @@ export default function SearchScreen() {
 
 	return (
 		<PaperProvider theme={paperTheme}>
-			<View style={styles.container}>
+			<SafeAreaView style={styles.container}>
 				<Searchbar
 					placeholder="Rechercher..."
 					value={search}
 					onChangeText={setSearch}
 				/>
-			</View>
+			</SafeAreaView>
 		</PaperProvider>
 	);
 }
@@ -25,7 +26,6 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		padding: 16,
-		paddingTop: 24,
+		padding: 8,
 	},
 });
