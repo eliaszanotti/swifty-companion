@@ -1,53 +1,18 @@
+import { Redirect } from "expo-router";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Button, TextInput, useTheme } from "react-native-paper";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { Button, useTheme } from "react-native-paper";
 
 export default function ProfileScreen() {
 	const theme = useTheme();
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 	if (!isLoggedIn) {
-		return (
-			<View
-				style={[
-					styles.container,
-					{ backgroundColor: theme.colors.background },
-				]}
-			>
-				<Text style={[styles.title, { color: theme.colors.onSurface }]}>
-					Connexion
-				</Text>
-				<TextInput
-					label="Identifiant"
-					mode="outlined"
-					value={username}
-					onChangeText={setUsername}
-					style={styles.input}
-				/>
-				<TextInput
-					label="Mot de passe"
-					mode="outlined"
-					secureTextEntry
-					value={password}
-					onChangeText={setPassword}
-					style={styles.input}
-				/>
-				<Button mode="contained" onPress={() => setIsLoggedIn(true)}>
-					Se connecter
-				</Button>
-			</View>
-		);
+		return <Redirect href="/login" />;
 	}
 
 	return (
-		<View
-			style={[
-				styles.container,
-				{ backgroundColor: theme.colors.background },
-			]}
-		>
+		<SafeAreaView style={styles.container}>
 			<Text style={[styles.title, { color: theme.colors.onSurface }]}>
 				Profile
 			</Text>
@@ -58,7 +23,7 @@ export default function ProfileScreen() {
 			<Button mode="contained" onPress={() => setIsLoggedIn(false)}>
 				Déconnexion
 			</Button>
-		</View>
+		</SafeAreaView>
 	);
 }
 
@@ -75,8 +40,5 @@ const styles = StyleSheet.create({
 		width: "100%",
 		fontWeight: "bold",
 		textAlign: "center",
-	},
-	input: {
-		width: "100%",
 	},
 });

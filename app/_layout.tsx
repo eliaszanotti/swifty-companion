@@ -1,3 +1,5 @@
+import { DarkPaperTheme, LightPaperTheme } from "@/constants/PaperTheme";
+import { useColorScheme } from "@/hooks/useColorScheme";
 import {
 	DarkTheme,
 	DefaultTheme,
@@ -6,16 +8,17 @@ import {
 import { useFonts } from "expo-font";
 import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { PaperProvider } from "react-native-paper";
 import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-
-import { useColorScheme } from "@/hooks/useColorScheme";
 
 export default function RootLayout() {
 	const colorScheme = useColorScheme();
 	const [loaded] = useFonts({
 		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
 	});
+	const paperTheme =
+		colorScheme === "dark" ? DarkPaperTheme : LightPaperTheme;
 
 	if (!loaded) {
 		return null;
@@ -23,22 +26,27 @@ export default function RootLayout() {
 
 	return (
 		<SafeAreaProvider>
-			<ThemeProvider
-				value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-			>
-				<Stack>
-					<Stack.Screen
-						name="index"
-						options={{ headerShown: false }}
-					/>
-					<Stack.Screen
-						name="(tabs)"
-						options={{ headerShown: false }}
-					/>
-					<Stack.Screen name="+not-found" />
-				</Stack>
-				<StatusBar style="auto" />
-			</ThemeProvider>
+			<PaperProvider theme={paperTheme}>
+				<ThemeProvider
+					value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+				>
+					<Stack>
+						<Stack.Screen
+							name="index"
+							options={{ headerShown: false }}
+						/>
+						<Stack.Screen
+							name="(tabs)"
+							options={{ headerShown: false }}
+						/>
+						<Stack.Screen
+							name="login"
+							options={{ headerShown: false }}
+						/>
+					</Stack>
+					<StatusBar style="auto" />
+				</ThemeProvider>
+			</PaperProvider>
 		</SafeAreaProvider>
 	);
 }
