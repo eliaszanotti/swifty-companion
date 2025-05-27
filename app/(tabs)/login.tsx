@@ -5,22 +5,22 @@ import { Button, Text, TextInput } from "react-native-paper";
 
 export default function LoginScreen() {
 	return (
-		<PaperSafeAreaView style={[styles.container]}>
-			<Text style={[styles.title]}>Connexion</Text>
+		<PaperSafeAreaView style={styles.container}>
+			<Text style={styles.title}>Connexion</Text>
 			<TextInput
 				label="Identifiant"
 				mode="outlined"
+				style={styles.input}
 				// value={username}
 				// onChangeText={setUsername}
-				style={styles.input}
 			/>
 			<TextInput
 				label="Mot de passe"
 				mode="outlined"
 				secureTextEntry
+				style={styles.input}
 				// value={password}
 				// onChangeText={setPassword}
-				style={styles.input}
 			/>
 			<Button mode="contained" onPress={() => {}}>
 				Se connecter
@@ -31,17 +31,15 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
-		padding: 32,
 		gap: 16,
-	},
-	input: {
-		width: "100%",
 	},
 	title: {
 		fontSize: 32,
 		fontWeight: "bold",
+	},
+	input: {
+		width: "100%",
 	},
 });

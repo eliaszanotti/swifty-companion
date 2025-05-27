@@ -8,7 +8,14 @@ export default function PaperSafeAreaView(props: ViewProps) {
 	return (
 		<SafeAreaView
 			{...props}
-			style={[{ backgroundColor: theme.colors.background }, props.style]}
+			style={[
+				{
+					backgroundColor: theme.colors.background,
+					flex: 1,
+					padding: 16,
+				},
+				props.style,
+			]}
 		>
 			{props.children}
 		</SafeAreaView>

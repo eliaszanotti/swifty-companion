@@ -30,16 +30,12 @@ export default function ProfileScreen() {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
-		padding: 32,
 		gap: 16,
 	},
 	title: {
 		fontSize: 32,
-		width: "100%",
 		fontWeight: "bold",
-		textAlign: "center",
 	},
 });
