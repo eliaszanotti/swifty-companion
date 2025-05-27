@@ -5,6 +5,7 @@ import { BottomNavigation, Icon, Provider } from "react-native-paper";
 
 import SearchScreen from "./index";
 import ProfileScreen from "./profile";
+// import LoginScreen from "./login"; // Importez le nouvel écran de connexion
 
 const Tab = createBottomTabNavigator();
 
@@ -87,6 +88,21 @@ export default function TabLayout() {
 						),
 					}}
 				/>
+				{/* Ajoutez le nouvel onglet de connexion ici */}
+				{/* <Tab.Screen
+					name="login"
+					component={LoginScreen}
+					options={{
+						title: "Connexion",
+						tabBarIcon: ({ color, focused }) => (
+							<Icon
+								source={focused ? "login" : "login-variant"} // Icône de connexion
+								color={color}
+								size={24}
+							/>
+						),
+					}}
+				/> */}
 			</Tab.Navigator>
 		</Provider>
 	);
