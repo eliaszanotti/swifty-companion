@@ -1,24 +1,22 @@
+import { useState } from "react";
 import { StyleSheet, View, useColorScheme } from "react-native";
-import { PaperProvider, Text, TextInput, useTheme } from "react-native-paper";
+import { PaperProvider, Searchbar } from "react-native-paper";
 import { DarkPaperTheme, LightPaperTheme } from "../constants/PaperTheme";
 
 export default function SearchScreen() {
 	const colorScheme = useColorScheme();
 	const paperTheme =
 		colorScheme === "dark" ? DarkPaperTheme : LightPaperTheme;
-	const theme = useTheme();
+	const [search, setSearch] = useState("");
 
 	return (
 		<PaperProvider theme={paperTheme}>
 			<View style={styles.container}>
-				<Text
-					variant="headlineLarge"
-					style={{ color: theme.colors.primary }}
-				>
-					Accueil
-				</Text>
-				<TextInput placeholder="Rechercher..." />
-				<Text>Ceci est le texte au milieu</Text>
+				<Searchbar
+					placeholder="Rechercher..."
+					value={search}
+					onChangeText={setSearch}
+				/>
 			</View>
 		</PaperProvider>
 	);
@@ -27,8 +25,6 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: "center",
-		paddingTop: 20,
-		gap: 20,
+		padding: 16,
 	},
 });
