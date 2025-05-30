@@ -1,52 +1,47 @@
 import PaperSafeAreaView from "@/components/PaperSafeAreaView";
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { Button, Card, Text } from "react-native-paper";
 
 interface LoginFormProps {
 	onLogin: () => void;
 }
 
 export default function LoginForm({ onLogin }: LoginFormProps) {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
-
 	return (
-		<PaperSafeAreaView style={styles.container}>
-			<Text style={styles.title}>Connexion</Text>
-			<TextInput
-				label="Identifiant"
-				mode="outlined"
-				style={styles.input}
-				value={username}
-				onChangeText={setUsername}
-			/>
-			<TextInput
-				label="Mot de passe"
-				mode="outlined"
-				secureTextEntry
-				style={styles.input}
-				value={password}
-				onChangeText={setPassword}
-			/>
-			<Button mode="contained" onPress={onLogin}>
-				Se connecter
-			</Button>
+		<PaperSafeAreaView>
+			<View style={styles.content}>
+				<Card mode="elevated" style={styles.card}>
+					<Card.Content style={styles.cardContent}>
+						<Text variant="headlineMedium">Connectez-vous</Text>
+						<Text variant="bodyLarge">
+							Pour voir vos informations 42, veuillez vous
+							connecter.
+						</Text>
+					</Card.Content>
+					<Card.Actions>
+						<Button mode="contained" onPress={onLogin} icon="login">
+							Se connecter avec 42
+						</Button>
+					</Card.Actions>
+				</Card>
+			</View>
 		</PaperSafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
+	content: {
+		flex: 1,
 		justifyContent: "center",
-		alignItems: "center",
+	},
+	card: {
+		padding: 16,
+		gap: 32,
+	},
+	cardContent: {
+		marginBottom: 32,
+		flex: 1,
 		gap: 16,
-	},
-	title: {
-		fontSize: 32,
-		fontWeight: "bold",
-	},
-	input: {
-		width: "100%",
 	},
 });
