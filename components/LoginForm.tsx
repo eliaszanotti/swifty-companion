@@ -15,8 +15,7 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
 					<Card.Content style={styles.cardContent}>
 						<Text variant="headlineMedium">Connectez-vous</Text>
 						<Text variant="bodyLarge">
-							Pour voir vos informations 42, veuillez vous
-							connecter.
+							Connectez-vous avec votre compte 42
 						</Text>
 					</Card.Content>
 					<Card.Actions>
@@ -41,7 +40,6 @@ const styles = StyleSheet.create({
 	},
 	cardContent: {
 		marginBottom: 32,
-		flex: 1,
 		gap: 16,
 	},
 });
