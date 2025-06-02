@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Card, Text, useTheme } from "react-native-paper";
 import Avatar from "./user/Avatar";
 import LevelProgressBar from "./user/LevelProgressBar";
+import UserStats from "./user/UserStats";
 
 interface User {
 	id?: number;
@@ -12,6 +13,8 @@ interface User {
 	displayname?: string;
 	email?: string;
 	phone?: string;
+	wallet?: number;
+	correction_point?: number;
 	image?: {
 		link?: string;
 		versions?: {
@@ -100,6 +103,13 @@ export default function UserCard({ user }: UserCardProps) {
 						)}
 					</View>
 				</View>
+
+				<UserStats
+					wallet={user.wallet}
+					rank={user.id}
+					score={Math.floor(currentLevel?.level || 0)}
+					evaluationPoints={user.correction_point}
+				/>
 
 				<View style={styles.infoSection}>
 					{user.email && (
