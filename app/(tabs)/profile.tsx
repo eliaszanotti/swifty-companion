@@ -50,8 +50,8 @@ export default function ProfileScreen() {
 	}
 
 	return (
-		<PaperSafeAreaView style={styles.container}>
-			<ScrollView contentContainerStyle={styles.scrollContent}>
+		<ScrollView contentContainerStyle={styles.scrollContent}>
+			<PaperSafeAreaView style={styles.container}>
 				{userInfo && <UserCard user={userInfo} />}
 				{userInfo && <SkillCard cursusUsers={userInfo.cursus_users} />}
 
@@ -65,8 +65,8 @@ export default function ProfileScreen() {
 						Loading user info...
 					</Text>
 				)}
-			</ScrollView>
-		</PaperSafeAreaView>
+			</PaperSafeAreaView>
+		</ScrollView>
 	);
 }
 
@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
 	},
 	scrollContent: {
 		gap: 16,
-		padding: 8,
 	},
 	loading: {
 		textAlign: "center",

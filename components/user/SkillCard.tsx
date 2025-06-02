@@ -64,7 +64,7 @@ export default function SkillCard({ cursusUsers }: SkillCardProps) {
 					variant="titleMedium"
 					style={[styles.title, { color: theme.colors.onSurface }]}
 				>
-					Compétences
+					Skills
 				</Text>
 
 				<View style={styles.skillsContainer}>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	skillsContainer: {
-		gap: 12,
+		gap: 16,
 	},
 	skillItem: {
 		gap: 8,
