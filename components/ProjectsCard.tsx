@@ -68,7 +68,7 @@ export default function ProjectsCard({ projectsUsers }: ProjectsCardProps) {
 					variant="titleMedium"
 					style={[styles.title, { color: theme.colors.onSurface }]}
 				>
-					Projets ({getCompletedProjects().length})
+					Projects ({getCompletedProjects().length})
 				</Text>
 
 				<View style={styles.projectsContainer}>
@@ -125,10 +125,10 @@ export default function ProjectsCard({ projectsUsers }: ProjectsCardProps) {
 						style={styles.showMoreButton}
 					>
 						{showAll
-							? "Afficher moins"
-							: `Afficher plus (${
+							? "Hide"
+							: `Show more (${
 									getCompletedProjects().length - 5
-							  } restants)`}
+							  } left)`}
 					</Button>
 				)}
 			</Card.Content>
