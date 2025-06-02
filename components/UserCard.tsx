@@ -97,12 +97,12 @@ export default function UserCard({ user }: UserCardProps) {
 								@{user.login}
 							</Text>
 						)}
-
-						{currentLevel && (
-							<LevelProgressBar currentLevel={currentLevel} />
-						)}
 					</View>
 				</View>
+
+				{currentLevel && (
+					<LevelProgressBar currentLevel={currentLevel} />
+				)}
 
 				<UserStats
 					wallet={user.wallet}

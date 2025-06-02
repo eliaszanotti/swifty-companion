@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
 		textAlign: "right",
 	},
 	progressBar: {
-		height: 6,
+		height: 12,
 		borderRadius: 3,
 	},
 });

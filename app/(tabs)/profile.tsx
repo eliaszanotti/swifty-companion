@@ -1,8 +1,9 @@
 import { useAuth } from "@/auth/AuthContext";
 import LoginForm from "@/components/LoginForm";
 import PaperSafeAreaView from "@/components/PaperSafeAreaView";
+import ProjectsCard from "@/components/ProjectsCard";
+import SkillCard from "@/components/SkillCard";
 import UserCard from "@/components/UserCard";
-import SkillCard from "@/components/user/SkillCard";
 
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
@@ -54,6 +55,9 @@ export default function ProfileScreen() {
 			<PaperSafeAreaView style={styles.container}>
 				{userInfo && <UserCard user={userInfo} />}
 				{userInfo && <SkillCard cursusUsers={userInfo.cursus_users} />}
+				{userInfo && (
+					<ProjectsCard projectsUsers={userInfo.projects_users} />
+				)}
 
 				{loading && (
 					<Text
