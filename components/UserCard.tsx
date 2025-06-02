@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Avatar, Card, ProgressBar, Text, useTheme } from "react-native-paper";
+import { Card, Text, useTheme } from "react-native-paper";
+import Avatar from "./user/Avatar";
+import LevelProgressBar from "./user/LevelProgressBar";
 
 interface User {
 	id?: number;
@@ -44,7 +46,7 @@ export default function UserCard({ user }: UserCardProps) {
 		return user.login || "Utilisateur inconnu";
 	};
 
-	const getAvatarSource = () => {
+	const getAvatarImageUrl = () => {
 		if (user.image?.link) return user.image.link;
 		if (user.image?.versions?.medium) return user.image.versions.medium;
 		if (user.image?.versions?.small) return user.image.versions.small;
@@ -54,7 +56,6 @@ export default function UserCard({ user }: UserCardProps) {
 	const getCurrentLevel = () => {
 		if (!user.cursus_users || user.cursus_users.length === 0) return null;
 
-		// Priorité au cursus 42 (cursus_id: 21) ou le premier cursus disponible
 		const mainCursus =
 			user.cursus_users.find((c) => c.cursus_id === 21) ||
 			user.cursus_users[0];
@@ -68,30 +69,11 @@ export default function UserCard({ user }: UserCardProps) {
 			<Card.Content style={styles.cardContent}>
 				<View style={styles.header}>
 					<View style={styles.avatarContainer}>
-						{getAvatarSource() ? (
-							<Avatar.Image
-								size={92}
-								source={{ uri: getAvatarSource() }}
-								style={styles.avatar}
-							/>
-						) : (
-							<Avatar.Text
-								size={92}
-								label={
-									user.login
-										? user.login
-												.substring(0, 2)
-												.toUpperCase()
-										: "??"
-								}
-								style={[
-									styles.avatar,
-									{
-										backgroundColor: theme.colors.primary,
-									},
-								]}
-							/>
-						)}
+						<Avatar
+							size={92}
+							imageUrl={getAvatarImageUrl()}
+							login={user.login}
+						/>
 					</View>
 
 					<View style={styles.nameSection}>
@@ -114,50 +96,7 @@ export default function UserCard({ user }: UserCardProps) {
 						)}
 
 						{currentLevel && (
-							<View style={styles.levelSection}>
-								<View style={styles.levelHeader}>
-									<Text
-										style={[
-											styles.levelText,
-											{ color: theme.colors.onSurface },
-										]}
-									>
-										Level {Math.floor(currentLevel.level)}
-									</Text>
-									<Text
-										style={[
-											styles.levelProgress,
-											{
-												color: theme.colors
-													.onSurfaceVariant,
-											},
-										]}
-									>
-										{Math.floor(
-											(currentLevel.level % 1) * 100
-										)}
-										%
-									</Text>
-								</View>
-								<ProgressBar
-									progress={currentLevel.level % 1}
-									color={theme.colors.primary}
-									style={styles.progressBar}
-								/>
-								{currentLevel.grade && (
-									<Text
-										style={[
-											styles.gradeText,
-											{
-												color: theme.colors
-													.onSurfaceVariant,
-											},
-										]}
-									>
-										{currentLevel.grade}
-									</Text>
-								)}
-							</View>
+							<LevelProgressBar currentLevel={currentLevel} />
 						)}
 					</View>
 				</View>
@@ -219,9 +158,6 @@ const styles = StyleSheet.create({
 	avatarContainer: {
 		height: "100%",
 	},
-	avatar: {
-		borderRadius: 100,
-	},
 	nameSection: {
 		flex: 1,
 		gap: 4,
@@ -229,29 +165,6 @@ const styles = StyleSheet.create({
 	},
 	displayName: {
 		fontWeight: "bold",
-	},
-	levelSection: {
-		marginTop: 16,
-		gap: 8,
-	},
-	levelHeader: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
-	},
-	levelText: {
-		fontSize: 14,
-	},
-	levelProgress: {
-		fontSize: 12,
-	},
-	progressBar: {
-		height: 12,
-		borderRadius: 3,
-	},
-	gradeText: {
-		fontSize: 12,
-		fontStyle: "italic",
 	},
 	infoSection: {
 		gap: 8,
