@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
 		marginBottom: 2,
 	},
 	statLabel: {
-		fontSize: 11,
 		textAlign: "center",
 	},
 });
