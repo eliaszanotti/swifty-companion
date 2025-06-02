@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Card, ProgressBar, Text, useTheme } from "react-native-paper";
+import { Card, Text, useTheme } from "react-native-paper";
+import CustomProgressBar from "./ui/CustomProgressBar";
 
 interface Skill {
 	id: number;
@@ -88,10 +89,9 @@ export default function SkillCard({ cursusUsers }: SkillCardProps) {
 									{formatSkillLevel(skill.level)}
 								</Text>
 							</View>
-							<ProgressBar
+							<CustomProgressBar
 								progress={getProgressValue(skill.level)}
 								color={theme.colors.primary}
-								style={styles.progressBar}
 							/>
 						</View>
 					))}
@@ -132,9 +132,5 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		minWidth: 50,
 		textAlign: "right",
-	},
-	progressBar: {
-		height: 12,
-		borderRadius: 3,
 	},
 });

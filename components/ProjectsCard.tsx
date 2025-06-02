@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import {
-	Button,
-	Card,
-	Chip,
-	ProgressBar,
-	Text,
-	useTheme,
-} from "react-native-paper";
+import { Button, Card, Chip, Text, useTheme } from "react-native-paper";
+import CustomProgressBar from "./ui/CustomProgressBar";
 
 interface ProjectUser {
 	id: number;
@@ -114,12 +108,11 @@ export default function ProjectsCard({ projectsUsers }: ProjectsCardProps) {
 									</Chip>
 								</View>
 							</View>
-							<ProgressBar
+							<CustomProgressBar
 								progress={getProgressValue(
 									projectUser.final_mark
 								)}
 								color={getStatusColor(projectUser)}
-								style={styles.progressBar}
 							/>
 						</View>
 					))}
@@ -180,10 +173,6 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		minWidth: 50,
 		textAlign: "right",
-	},
-	progressBar: {
-		height: 12,
-		borderRadius: 3,
 	},
 	showMoreButton: {
 		alignSelf: "center",

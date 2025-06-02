@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import { ProgressBar, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
+import CustomProgressBar from "../ui/CustomProgressBar";
 
 interface LevelProgressBarProps {
 	currentLevel: {
@@ -33,13 +34,12 @@ export default function LevelProgressBar({
 							},
 						]}
 					>
-						{((currentLevel?.level || 0) % 1 * 100).toFixed(0)}%
+						{(((currentLevel?.level || 0) % 1) * 100).toFixed(0)}%
 					</Text>
 				</View>
-				<ProgressBar
+				<CustomProgressBar
 					progress={currentLevel.level % 1}
 					color={theme.colors.primary}
-					style={styles.progressBar}
 				/>
 				<Text
 					style={[
@@ -71,10 +71,6 @@ const styles = StyleSheet.create({
 	},
 	levelProgress: {
 		fontSize: 12,
-	},
-	progressBar: {
-		height: 12,
-		borderRadius: 3,
 	},
 	gradeText: {
 		fontSize: 12,
