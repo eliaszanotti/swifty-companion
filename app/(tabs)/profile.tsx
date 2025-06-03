@@ -1,9 +1,9 @@
-import { useAuth } from "@/auth/AuthContext";
 import LoginForm from "@/components/LoginForm";
 import PaperSafeAreaView from "@/components/PaperSafeAreaView";
 import ProjectsCard from "@/components/ProjectsCard";
 import SkillCard from "@/components/SkillCard";
 import UserCard from "@/components/UserCard";
+import { useAuth } from "@/hooks/useAuthContext";
 
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
