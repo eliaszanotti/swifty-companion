@@ -2,52 +2,25 @@ import PaperSafeAreaView from "@/components/PaperSafeAreaView";
 import ProjectsCard from "@/components/ProjectsCard";
 import SkillCard from "@/components/SkillCard";
 import UserCard from "@/components/UserCard";
-import { useAuth } from "@/hooks/useAuthContext";
+import { useProfileApi } from "@/hooks/useProfileApi";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { useTheme } from "react-native-paper";
 
 export default function ProfileScreen() {
 	const theme = useTheme();
-	const { accessToken } = useAuth();
-	const [userInfo, setUserInfo] = useState<any>(null);
-	const [loading, setLoading] = useState(false);
-
-	useEffect(() => {
-		if (!accessToken) return;
-
-		const fetchUserInfo = async () => {
-			setLoading(true);
-			try {
-				const response = await fetch("https://api.intra.42.fr/v2/me", {
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-					},
-				});
-
-				if (response.ok) {
-					const userData = await response.json();
-					setUserInfo(userData);
-				} else {
-					console.error(
-						"Failed to fetch user info:",
-						response.status
-					);
-				}
-			} catch (error) {
-				console.error("Error fetching user info:", error);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchUserInfo();
-	}, [accessToken]);
+	const { userInfo, loading, error } = useProfileApi();
 
 	return (
 		<ScrollView contentContainerStyle={styles.scrollContent}>
 			<PaperSafeAreaView style={styles.container}>
+				{error && (
+					<Text style={[styles.error, { color: theme.colors.error }]}>
+						{error}
+					</Text>
+				)}
+
 				{userInfo && <UserCard user={userInfo} />}
 				{userInfo && <SkillCard cursusUsers={userInfo.cursus_users} />}
 				{userInfo && (
@@ -77,6 +50,11 @@ const styles = StyleSheet.create({
 		gap: 16,
 	},
 	loading: {
+		textAlign: "center",
+		fontStyle: "italic",
+		marginVertical: 16,
+	},
+	error: {
 		textAlign: "center",
 		fontStyle: "italic",
 		marginVertical: 16,
