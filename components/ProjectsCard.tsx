@@ -138,7 +138,7 @@ export default function ProjectsCard({ projectsUsers }: ProjectsCardProps) {
 
 const styles = StyleSheet.create({
 	card: {
-		margin: 8,
+		marginVertical: 8,
 	},
 	cardContent: {
 		gap: 16,
@@ -158,10 +158,10 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	projectName: {
-		fontSize: 14,
+		fontSize: 16,
 		fontWeight: "500",
 		flex: 1,
-		marginRight: 8,
+		marginRight: 16,
 	},
 	projectMeta: {
 		flexDirection: "row",

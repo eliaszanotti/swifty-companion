@@ -103,7 +103,7 @@ export default function SkillCard({ cursusUsers }: SkillCardProps) {
 
 const styles = StyleSheet.create({
 	card: {
-		margin: 8,
+		marginVertical: 8,
 	},
 	cardContent: {
 		gap: 16,

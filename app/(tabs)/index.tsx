@@ -1,7 +1,8 @@
+import ListUserCard from "@/components/ListUserCard";
 import PaperSafeAreaView from "@/components/PaperSafeAreaView";
 import { useSearchApi } from "@/hooks/useSearchApi";
 import { useSearchStore } from "@/hooks/useSearchContext";
-import { View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { ActivityIndicator, Searchbar, Text } from "react-native-paper";
 
 export default function SearchScreen() {
@@ -9,7 +10,7 @@ export default function SearchScreen() {
 	const { isLoading, error, users } = useSearchApi();
 
 	return (
-		<PaperSafeAreaView>
+		<PaperSafeAreaView style={{ gap: 16 }}>
 			<Searchbar
 				placeholder="Rechercher..."
 				value={searchQuery}
@@ -24,30 +25,23 @@ export default function SearchScreen() {
 				</Text>
 			)}
 
-			<View style={{ padding: 16 }}>
-				<Text style={{ fontSize: 16, fontWeight: "bold" }}>
-					Recherche: &quot;{searchQuery}&quot;
-				</Text>
-				<Text style={{ fontSize: 14, marginTop: 8 }}>
-					Nombre d&apos;utilisateurs trouvés: {users.length}
-				</Text>
+			{users.length > 0 ? (
+				<Text style={styles.usersCount}>{users.length} users</Text>
+			) : (
+				<Text style={styles.usersCount}>No user found</Text>
+			)}
 
-				{users.length > 0 && (
-					<View style={{ marginTop: 16 }}>
-						<Text style={{ fontSize: 14, fontWeight: "bold" }}>
-							Logins:
-						</Text>
-						{users.map((user, index) => (
-							<Text
-								key={user.id || index}
-								style={{ fontSize: 12, marginLeft: 8 }}
-							>
-								• {user.login}
-							</Text>
-						))}
-					</View>
-				)}
-			</View>
+			<ScrollView>
+				{users.map((user, index) => (
+					<ListUserCard key={user.id || index} user={user} />
+				))}
+			</ScrollView>
 		</PaperSafeAreaView>
 	);
 }
+
+const styles = StyleSheet.create({
+	usersCount: {
+		textAlign: "center",
+	},
+});

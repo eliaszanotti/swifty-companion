@@ -6,23 +6,21 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function PaperSafeAreaView(props: ViewProps) {
 	const theme = useTheme();
 	return (
-		<KeyboardAvoidingView
-			style={{ flex: 1 }}
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+		<SafeAreaView
+			style={[
+				{
+					backgroundColor: theme.colors.background,
+					flex: 1,
+				},
+			]}
 		>
-			<SafeAreaView
+			<KeyboardAvoidingView
 				{...props}
-				style={[
-					{
-						backgroundColor: theme.colors.background,
-						flex: 1,
-						padding: 16,
-					},
-					props.style,
-				]}
+				style={[{ flex: 1, paddingHorizontal: 16 }, props.style]}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
 			>
 				{props.children}
-			</SafeAreaView>
-		</KeyboardAvoidingView>
+			</KeyboardAvoidingView>
+		</SafeAreaView>
 	);
 }

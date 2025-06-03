@@ -90,10 +90,7 @@ export default function UserCard({ user }: UserCardProps) {
 							{getDisplayName()}
 						</Text>
 						{user.login && (
-							<Text
-								variant="bodyMedium"
-								style={[{ color: theme.colors.primary }]}
-							>
+							<Text variant="bodyMedium" style={{ opacity: 0.7 }}>
 								@{user.login}
 							</Text>
 						)}
@@ -155,7 +152,7 @@ export default function UserCard({ user }: UserCardProps) {
 
 const styles = StyleSheet.create({
 	card: {
-		margin: 8,
+		marginVertical: 8,
 	},
 	cardContent: {
 		gap: 16,
