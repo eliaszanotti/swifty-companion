@@ -1,7 +1,6 @@
 import { DarkPaperTheme, LightPaperTheme } from "@/constants/PaperTheme";
 import { AuthProvider } from "@/hooks/useAuthContext";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { SearchProvider } from "@/hooks/useSearchContext";
 import {
 	DarkTheme,
 	DefaultTheme,
@@ -30,31 +29,27 @@ export default function RootLayout() {
 		<SafeAreaProvider>
 			<PaperProvider theme={paperTheme}>
 				<AuthProvider>
-					<SearchProvider>
-						<ThemeProvider
-							value={
-								colorScheme === "dark"
-									? DarkTheme
-									: DefaultTheme
-							}
-						>
-							<Stack>
-								<Stack.Screen
-									name="index"
-									options={{ headerShown: false }}
-								/>
-								<Stack.Screen
-									name="(tabs)"
-									options={{ headerShown: false }}
-								/>
-								<Stack.Screen
-									name="login"
-									options={{ headerShown: false }}
-								/>
-							</Stack>
-							<StatusBar style="auto" />
-						</ThemeProvider>
-					</SearchProvider>
+					<ThemeProvider
+						value={
+							colorScheme === "dark" ? DarkTheme : DefaultTheme
+						}
+					>
+						<Stack>
+							<Stack.Screen
+								name="index"
+								options={{ headerShown: false }}
+							/>
+							<Stack.Screen
+								name="(tabs)"
+								options={{ headerShown: false }}
+							/>
+							<Stack.Screen
+								name="login"
+								options={{ headerShown: false }}
+							/>
+						</Stack>
+						<StatusBar style="auto" />
+					</ThemeProvider>
 				</AuthProvider>
 			</PaperProvider>
 		</SafeAreaProvider>
