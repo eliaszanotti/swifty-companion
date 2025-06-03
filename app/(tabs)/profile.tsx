@@ -1,4 +1,3 @@
-import LoginForm from "@/components/LoginForm";
 import PaperSafeAreaView from "@/components/PaperSafeAreaView";
 import ProjectsCard from "@/components/ProjectsCard";
 import SkillCard from "@/components/SkillCard";
@@ -11,12 +10,12 @@ import { useTheme } from "react-native-paper";
 
 export default function ProfileScreen() {
 	const theme = useTheme();
-	const { isLoggedIn, login, accessToken } = useAuth();
+	const { accessToken } = useAuth();
 	const [userInfo, setUserInfo] = useState<any>(null);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		if (!isLoggedIn || !accessToken) return;
+		if (!accessToken) return;
 
 		const fetchUserInfo = async () => {
 			setLoading(true);
@@ -44,11 +43,7 @@ export default function ProfileScreen() {
 		};
 
 		fetchUserInfo();
-	}, [isLoggedIn, accessToken]);
-
-	if (!isLoggedIn) {
-		return <LoginForm onLogin={login} />;
-	}
+	}, [accessToken]);
 
 	return (
 		<ScrollView contentContainerStyle={styles.scrollContent}>

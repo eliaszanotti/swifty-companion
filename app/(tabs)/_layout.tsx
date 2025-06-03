@@ -1,3 +1,5 @@
+import LoginForm from "@/components/LoginForm";
+import { useAuth } from "@/hooks/useAuthContext";
 import { SearchProvider } from "@/hooks/useSearchContext";
 import { CommonActions } from "@react-navigation/native";
 import { Tabs } from "expo-router";
@@ -5,6 +7,12 @@ import React from "react";
 import { BottomNavigation, Icon } from "react-native-paper";
 
 export default function TabLayout() {
+	const { isLoggedIn, login } = useAuth();
+
+	if (!isLoggedIn) {
+		return <LoginForm onLogin={login} />;
+	}
+
 	return (
 		<SearchProvider>
 			<Tabs
@@ -37,7 +45,6 @@ export default function TabLayout() {
 						renderIcon={({ route, focused, color }) => {
 							const { options } = descriptors[route.key];
 							if (options.tabBarIcon) {
-								// @ts-ignore
 								return options.tabBarIcon({
 									focused,
 									color,
