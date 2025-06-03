@@ -29,9 +29,7 @@ export function useSearchApi() {
 				const response = await fetch(
 					`https://api.intra.42.fr/v2/users?range[login]=${encodeURIComponent(
 						searchLower
-					)},${encodeURIComponent(
-						rangeEnd
-					)}&page[size]=100&fields[user]=login`,
+					)},${encodeURIComponent(rangeEnd)}&page[size]=100`,
 					{
 						headers: {
 							Authorization: `Bearer ${accessToken}`,
@@ -44,15 +42,6 @@ export function useSearchApi() {
 				}
 
 				const users = await response.json();
-
-				const foundLogins = users.map((user: any) => user.login);
-				console.log(`=== RANGE RECHERCHE "${searchTerm}" ===`);
-				console.log(`Range: ${searchLower} à ${rangeEnd}`);
-				console.log(foundLogins);
-				console.log(
-					`=== ${foundLogins.length} utilisateurs trouvés ===`
-				);
-
 				setUsers(users);
 			} catch (error) {
 				console.error("Erreur lors de la recherche:", error);
