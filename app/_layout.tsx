@@ -9,30 +9,32 @@ import {
 import { useFonts } from "expo-font";
 import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import "react-native-reanimated";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+	SafeAreaProvider,
+	useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
-export default function RootLayout() {
+function RootLayoutWithInset() {
 	const colorScheme = useColorScheme();
-	const [loaded] = useFonts({
-		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-	});
+	const insets = useSafeAreaInsets();
 	const paperTheme =
 		colorScheme === "dark" ? DarkPaperTheme : LightPaperTheme;
 
-	if (!loaded) {
-		return null;
-	}
-
 	return (
-		<SafeAreaProvider>
-			<PaperProvider theme={paperTheme}>
-				<AuthProvider>
-					<ThemeProvider
-						value={
-							colorScheme === "dark" ? DarkTheme : DefaultTheme
-						}
+		<PaperProvider theme={paperTheme}>
+			<AuthProvider>
+				<ThemeProvider
+					value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+				>
+					<View
+						style={{
+							flex: 1,
+							paddingTop: insets.top,
+							backgroundColor: paperTheme.colors.background,
+						}}
 					>
 						<Stack>
 							<Stack.Screen
@@ -48,10 +50,29 @@ export default function RootLayout() {
 								options={{ headerShown: false }}
 							/>
 						</Stack>
-						<StatusBar style="auto" />
-					</ThemeProvider>
-				</AuthProvider>
-			</PaperProvider>
+					</View>
+					<StatusBar
+						style={colorScheme === "dark" ? "light" : "dark"}
+						backgroundColor="transparent"
+					/>
+				</ThemeProvider>
+			</AuthProvider>
+		</PaperProvider>
+	);
+}
+
+export default function RootLayout() {
+	const [loaded] = useFonts({
+		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+	});
+
+	if (!loaded) {
+		return null;
+	}
+
+	return (
+		<SafeAreaProvider>
+			<RootLayoutWithInset />
 		</SafeAreaProvider>
 	);
 }
