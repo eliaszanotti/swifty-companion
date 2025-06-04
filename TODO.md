@@ -1,1 +1,0 @@
-mettre le clavier de search en minuscule
