@@ -10,6 +10,7 @@ interface User {
 	image?: {
 		link?: string;
 	};
+	location?: string;
 }
 
 interface ListUserCardProps {
@@ -42,6 +43,7 @@ export default function ListUserCard({
 							login={user.login}
 							firstName={user.first_name}
 							lastName={user.last_name}
+							location={user.location}
 						/>
 					</View>
 				</View>
