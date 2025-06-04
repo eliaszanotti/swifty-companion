@@ -33,6 +33,8 @@ export default function SearchScreen() {
 					placeholder="Rechercher..."
 					value={searchQuery}
 					onChangeText={setSearchQuery}
+					autoCapitalize="none"
+					autoCorrect={false}
 				/>
 
 				{error && (
