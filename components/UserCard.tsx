@@ -1,8 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Card, Chip, Text, useTheme } from "react-native-paper";
+import { Card, Text, useTheme } from "react-native-paper";
 import Avatar from "./user/Avatar";
 import LevelProgressBar from "./user/LevelProgressBar";
+import UserInfo from "./user/UserInfo";
 import UserStats from "./user/UserStats";
 
 interface User {
@@ -42,14 +43,6 @@ interface UserCardProps {
 export default function UserCard({ user }: UserCardProps) {
 	const theme = useTheme();
 
-	const getDisplayName = () => {
-		if (user.displayname) return user.displayname;
-		if (user.first_name && user.last_name) {
-			return `${user.first_name} ${user.last_name}`;
-		}
-		return user.login || "Utilisateur inconnu";
-	};
-
 	const getAvatarImageUrl = () => {
 		if (user.image?.link) return user.image.link;
 		if (user.image?.versions?.medium) return user.image.versions.medium;
@@ -81,37 +74,13 @@ export default function UserCard({ user }: UserCardProps) {
 					</View>
 
 					<View style={styles.nameSection}>
-						<Text
-							variant="titleMedium"
-							style={{
-								color: theme.colors.onSurface,
-								fontWeight: "bold",
-							}}
-						>
-							{getDisplayName()}
-						</Text>
-						{user.login && (
-							<Text variant="bodyMedium" style={{ opacity: 0.7 }}>
-								@{user.login}
-							</Text>
-						)}
-						{user.location ? (
-							<Chip
-								mode="flat"
-								style={styles.locationChip}
-								textStyle={styles.locationText}
-							>
-								{user.location}
-							</Chip>
-						) : (
-							<Chip
-								mode="flat"
-								style={styles.locationChip}
-								textStyle={styles.locationText}
-							>
-								unavailable
-							</Chip>
-						)}
+						<UserInfo
+							login={user.login}
+							firstName={user.first_name}
+							lastName={user.last_name}
+							displayName={user.displayname}
+							location={user.location}
+						/>
 					</View>
 				</View>
 
@@ -193,11 +162,5 @@ const styles = StyleSheet.create({
 	},
 	infoRow: {
 		flexDirection: "row",
-	},
-	locationChip: {
-		alignSelf: "flex-start",
-	},
-	locationText: {
-		fontSize: 12,
 	},
 });

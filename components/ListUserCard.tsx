@@ -1,5 +1,6 @@
 import { View } from "react-native";
-import { Avatar, Card, Text } from "react-native-paper";
+import { Avatar, Card } from "react-native-paper";
+import UserInfo from "./user/UserInfo";
 
 interface User {
 	id: number;
@@ -20,11 +21,6 @@ export default function ListUserCard({
 	user,
 	onUserSelect,
 }: ListUserCardProps) {
-	const fullName =
-		user.first_name && user.last_name
-			? `${user.first_name} ${user.last_name}`
-			: user.login;
-
 	const handlePress = () => {
 		onUserSelect(user.login);
 	};
@@ -42,10 +38,11 @@ export default function ListUserCard({
 						}}
 					/>
 					<View style={{ marginLeft: 16, flex: 1 }}>
-						<Text variant="titleMedium">{fullName}</Text>
-						<Text variant="bodyMedium" style={{ opacity: 0.7 }}>
-							@{user.login}
-						</Text>
+						<UserInfo
+							login={user.login}
+							firstName={user.first_name}
+							lastName={user.last_name}
+						/>
 					</View>
 				</View>
 			</Card.Content>
