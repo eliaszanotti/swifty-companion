@@ -13,7 +13,7 @@ interface UserInfo {
 	projects_users: any[];
 }
 
-export function useProfileApi() {
+export function useProfileApi(userId?: string) {
 	const { accessToken } = useAuth();
 	const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 	const [loading, setLoading] = useState(false);
@@ -27,7 +27,11 @@ export function useProfileApi() {
 			setError(null);
 
 			try {
-				const response = await fetch("https://api.intra.42.fr/v2/me", {
+				const endpoint = userId
+					? `https://api.intra.42.fr/v2/users/${userId}`
+					: "https://api.intra.42.fr/v2/me";
+
+				const response = await fetch(endpoint, {
 					headers: {
 						Authorization: `Bearer ${accessToken}`,
 					},
@@ -49,7 +53,7 @@ export function useProfileApi() {
 		};
 
 		fetchUserInfo();
-	}, [accessToken]);
+	}, [accessToken, userId]);
 
 	return {
 		userInfo,

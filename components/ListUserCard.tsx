@@ -13,16 +13,24 @@ interface User {
 
 interface ListUserCardProps {
 	user: User;
+	onUserSelect: (userId: string) => void;
 }
 
-export default function ListUserCard({ user }: ListUserCardProps) {
+export default function ListUserCard({
+	user,
+	onUserSelect,
+}: ListUserCardProps) {
 	const fullName =
 		user.first_name && user.last_name
 			? `${user.first_name} ${user.last_name}`
 			: user.login;
 
+	const handlePress = () => {
+		onUserSelect(user.login);
+	};
+
 	return (
-		<Card style={{ marginVertical: 8 }}>
+		<Card style={{ marginVertical: 8 }} onPress={handlePress}>
 			<Card.Content>
 				<View style={{ flexDirection: "row", alignItems: "center" }}>
 					<Avatar.Image
