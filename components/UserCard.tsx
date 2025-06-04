@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Card, Text, useTheme } from "react-native-paper";
+import { Card, Chip, Text, useTheme } from "react-native-paper";
 import Avatar from "./user/Avatar";
 import LevelProgressBar from "./user/LevelProgressBar";
 import UserStats from "./user/UserStats";
@@ -32,6 +32,7 @@ interface User {
 			name: string;
 		};
 	}[];
+	location?: string;
 }
 
 interface UserCardProps {
@@ -82,10 +83,10 @@ export default function UserCard({ user }: UserCardProps) {
 					<View style={styles.nameSection}>
 						<Text
 							variant="titleMedium"
-							style={[
-								styles.displayName,
-								{ color: theme.colors.onSurface },
-							]}
+							style={{
+								color: theme.colors.onSurface,
+								fontWeight: "bold",
+							}}
 						>
 							{getDisplayName()}
 						</Text>
@@ -93,6 +94,23 @@ export default function UserCard({ user }: UserCardProps) {
 							<Text variant="bodyMedium" style={{ opacity: 0.7 }}>
 								@{user.login}
 							</Text>
+						)}
+						{user.location ? (
+							<Chip
+								mode="flat"
+								style={styles.locationChip}
+								textStyle={styles.locationText}
+							>
+								{user.location}
+							</Chip>
+						) : (
+							<Chip
+								mode="flat"
+								style={styles.locationChip}
+								textStyle={styles.locationText}
+							>
+								unavailable
+							</Chip>
 						)}
 					</View>
 				</View>
@@ -167,16 +185,19 @@ const styles = StyleSheet.create({
 	},
 	nameSection: {
 		flex: 1,
-		gap: 4,
+		gap: 8,
 		height: "100%",
-	},
-	displayName: {
-		fontWeight: "bold",
 	},
 	infoSection: {
 		gap: 8,
 	},
 	infoRow: {
 		flexDirection: "row",
+	},
+	locationChip: {
+		alignSelf: "flex-start",
+	},
+	locationText: {
+		fontSize: 12,
 	},
 });

@@ -11,6 +11,7 @@ interface UserInfo {
 	};
 	cursus_users: any[];
 	projects_users: any[];
+	location?: string;
 }
 
 export function useProfileApi(userId?: string) {
