@@ -32,15 +32,16 @@ export default function SkillCard({ cursusUsers, onPress }: SkillCardProps) {
 
 	return (
 		<Card
-			style={[styles.card, { backgroundColor: theme.colors.primary }]}
+			style={{
+				marginVertical: 8,
+				minHeight: 80,
+				justifyContent: "center",
+			}}
 			mode="elevated"
 			onPress={onPress}
 		>
 			<Card.Content style={styles.cardContent}>
-				<Text
-					variant="titleMedium"
-					style={[styles.title, { color: theme.colors.onPrimary }]}
-				>
+				<Text variant="titleMedium" style={{ fontWeight: "bold" }}>
 					Skills
 				</Text>
 			</Card.Content>
@@ -49,16 +50,8 @@ export default function SkillCard({ cursusUsers, onPress }: SkillCardProps) {
 }
 
 const styles = StyleSheet.create({
-	card: {
-		marginVertical: 8,
-		minHeight: 80,
-		justifyContent: "center",
-	},
 	cardContent: {
 		alignItems: "center",
 		justifyContent: "center",
-	},
-	title: {
-		fontWeight: "bold",
 	},
 });

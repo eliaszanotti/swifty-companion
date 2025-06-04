@@ -1,8 +1,8 @@
 import PaperView from "@/components/PaperView";
 import CustomProgressBar from "@/components/ui/CustomProgressBar";
-import React, { useEffect } from "react";
-import { BackHandler, ScrollView, StyleSheet, View } from "react-native";
-import { Card, Chip, IconButton, Text, useTheme } from "react-native-paper";
+import React from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { Card, Chip, Text, useTheme } from "react-native-paper";
 
 interface ProjectUser {
 	id: number;
@@ -18,28 +18,10 @@ interface ProjectUser {
 
 interface ProjectDetailProps {
 	projectsUsers?: ProjectUser[];
-	onBack: () => void;
 }
 
-export default function ProjectDetail({
-	projectsUsers,
-	onBack,
-}: ProjectDetailProps) {
+export default function ProjectDetail({ projectsUsers }: ProjectDetailProps) {
 	const theme = useTheme();
-
-	useEffect(() => {
-		const backAction = () => {
-			onBack();
-			return true;
-		};
-
-		const backHandler = BackHandler.addEventListener(
-			"hardwareBackPress",
-			backAction
-		);
-
-		return () => backHandler.remove();
-	}, [onBack]);
 
 	const getAllProjects = (): ProjectUser[] => {
 		if (!projectsUsers) return [];
@@ -74,14 +56,7 @@ export default function ProjectDetail({
 	};
 
 	return (
-		<PaperView style={{ flex: 1, paddingHorizontal: 0 }}>
-			<IconButton
-				icon="arrow-left"
-				mode="contained"
-				onPress={onBack}
-				style={styles.backButton}
-			/>
-
+		<PaperView>
 			<ScrollView contentContainerStyle={{ padding: 16 }}>
 				<Card style={styles.card} mode="elevated">
 					<Card.Content style={styles.cardContent}>
@@ -161,10 +136,6 @@ export default function ProjectDetail({
 }
 
 const styles = StyleSheet.create({
-	backButton: {
-		alignSelf: "flex-start",
-		margin: 16,
-	},
 	card: {
 		marginVertical: 8,
 	},

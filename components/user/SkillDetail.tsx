@@ -1,8 +1,8 @@
 import PaperView from "@/components/PaperView";
 import CustomProgressBar from "@/components/ui/CustomProgressBar";
-import React, { useEffect } from "react";
-import { BackHandler, ScrollView, StyleSheet, View } from "react-native";
-import { Card, IconButton, Text, useTheme } from "react-native-paper";
+import React from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { Card, Text, useTheme } from "react-native-paper";
 
 interface Skill {
 	id: number;
@@ -16,25 +16,10 @@ interface CursusUser {
 
 interface SkillDetailProps {
 	cursusUsers?: CursusUser[];
-	onBack: () => void;
 }
 
-export default function SkillDetail({ cursusUsers, onBack }: SkillDetailProps) {
+export default function SkillDetail({ cursusUsers }: SkillDetailProps) {
 	const theme = useTheme();
-
-	useEffect(() => {
-		const backAction = () => {
-			onBack();
-			return true;
-		};
-
-		const backHandler = BackHandler.addEventListener(
-			"hardwareBackPress",
-			backAction
-		);
-
-		return () => backHandler.remove();
-	}, [onBack]);
 
 	const extractSkills = (): Skill[] => {
 		if (!cursusUsers) return [];
@@ -71,14 +56,7 @@ export default function SkillDetail({ cursusUsers, onBack }: SkillDetailProps) {
 	};
 
 	return (
-		<PaperView style={{ flex: 1, paddingHorizontal: 0 }}>
-			<IconButton
-				icon="arrow-left"
-				mode="contained"
-				onPress={onBack}
-				style={styles.backButton}
-			/>
-
+		<PaperView>
 			<ScrollView contentContainerStyle={{ padding: 16 }}>
 				<Card style={styles.card} mode="elevated">
 					<Card.Content style={styles.cardContent}>
@@ -131,10 +109,6 @@ export default function SkillDetail({ cursusUsers, onBack }: SkillDetailProps) {
 }
 
 const styles = StyleSheet.create({
-	backButton: {
-		alignSelf: "flex-start",
-		margin: 16,
-	},
 	card: {
 		marginVertical: 8,
 	},

@@ -3,8 +3,8 @@ import ProjectsCard from "@/components/ProjectsCard";
 import SkillCard from "@/components/SkillCard";
 import UserCard from "@/components/UserCard";
 import { useProfileApi } from "@/hooks/useProfileApi";
-import React, { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { BackHandler, ScrollView, Text, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import ProjectDetail from "./ProjectDetail";
 import SkillDetail from "./SkillDetail";
@@ -35,22 +35,32 @@ export default function UserProfile({ userId }: UserProfileProps) {
 		setShowProjectDetail(false);
 	};
 
-	if (showSkillDetail) {
-		return (
-			<SkillDetail
-				cursusUsers={userInfo?.cursus_users}
-				onBack={handleBackFromSkills}
-			/>
+	useEffect(() => {
+		if (!showSkillDetail && !showProjectDetail) return;
+
+		const backAction = () => {
+			if (showSkillDetail) {
+				handleBackFromSkills();
+			} else if (showProjectDetail) {
+				handleBackFromProjects();
+			}
+			return true;
+		};
+
+		const backHandler = BackHandler.addEventListener(
+			"hardwareBackPress",
+			backAction
 		);
+
+		return () => backHandler.remove();
+	}, [showSkillDetail, showProjectDetail]);
+
+	if (showSkillDetail) {
+		return <SkillDetail cursusUsers={userInfo?.cursus_users} />;
 	}
 
 	if (showProjectDetail) {
-		return (
-			<ProjectDetail
-				projectsUsers={userInfo?.projects_users}
-				onBack={handleBackFromProjects}
-			/>
-		);
+		return <ProjectDetail projectsUsers={userInfo?.projects_users} />;
 	}
 
 	return (
