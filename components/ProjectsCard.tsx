@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
-import { Button, Card, Chip, Text, useTheme } from "react-native-paper";
-import CustomProgressBar from "./ui/CustomProgressBar";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { Card, Text, useTheme } from "react-native-paper";
 
 interface ProjectUser {
 	id: number;
@@ -17,120 +16,36 @@ interface ProjectUser {
 
 interface ProjectsCardProps {
 	projectsUsers?: ProjectUser[];
+	onPress: () => void;
 }
 
-export default function ProjectsCard({ projectsUsers }: ProjectsCardProps) {
+export default function ProjectsCard({
+	projectsUsers,
+	onPress,
+}: ProjectsCardProps) {
 	const theme = useTheme();
-	const [showAll, setShowAll] = useState(false);
 
-	const getCompletedProjects = (): ProjectUser[] => {
-		if (!projectsUsers) return [];
-
-		return projectsUsers.sort(
-			(a, b) => (b.final_mark || 0) - (a.final_mark || 0)
-		);
+	const hasProjects = () => {
+		return projectsUsers && projectsUsers.length > 0;
 	};
 
-	const displayedProjects = showAll
-		? getCompletedProjects()
-		: getCompletedProjects().slice(0, 5);
-
-	const getProgressValue = (mark?: number) => {
-		if (!mark) return 0;
-		return Math.min(mark / 100, 1);
-	};
-
-	const getStatusColor = (project: ProjectUser) => {
-		if (project.status === "finished") {
-			return "#a1c181";
-		}
-		return "#ff686b";
-	};
-
-	const getStatusText = (project: ProjectUser) => {
-		if (project["validated?"]) return "Validated";
-		if (project.status === "in_progress") return "In progress";
-		if (project.status === "waiting_for_correction")
-			return "Waiting for correction";
-		if (project.status === "searching_a_group") return "Searching a group";
-		if (project.status === "createing_group") return "Creating group";
-		return project.status;
-	};
-
-	if (!projectsUsers || projectsUsers.length === 0) {
+	if (!hasProjects()) {
 		return null;
 	}
 
 	return (
-		<Card style={styles.card} mode="elevated">
+		<Card
+			style={[styles.card, { backgroundColor: theme.colors.primary }]}
+			mode="elevated"
+			onPress={onPress}
+		>
 			<Card.Content style={styles.cardContent}>
 				<Text
 					variant="titleMedium"
-					style={[styles.title, { color: theme.colors.onSurface }]}
+					style={[styles.title, { color: theme.colors.onPrimary }]}
 				>
-					Projects ({getCompletedProjects().length})
+					Projects
 				</Text>
-
-				<View style={styles.projectsContainer}>
-					{displayedProjects.map((projectUser) => (
-						<View key={projectUser.id} style={styles.projectItem}>
-							<View style={styles.projectHeader}>
-								<Text
-									style={[
-										styles.projectName,
-										{ color: theme.colors.onSurface },
-									]}
-								>
-									{projectUser.project.name}
-								</Text>
-								<View style={styles.projectMeta}>
-									<Text
-										style={[
-											styles.projectMark,
-											{ color: theme.colors.primary },
-										]}
-									>
-										{projectUser.final_mark || 0}/100
-									</Text>
-									<Chip
-										style={[
-											{
-												backgroundColor:
-													getStatusColor(projectUser),
-											},
-										]}
-										textStyle={{
-											color: "white",
-											fontSize: 10,
-										}}
-									>
-										{getStatusText(projectUser)}
-									</Chip>
-								</View>
-							</View>
-							<CustomProgressBar
-								progress={getProgressValue(
-									projectUser.final_mark
-								)}
-								color={getStatusColor(projectUser)}
-							/>
-						</View>
-					))}
-				</View>
-
-				{getCompletedProjects().length > 5 && (
-					<Button
-						mode="text"
-						onPress={() => setShowAll(!showAll)}
-						style={styles.showMoreButton}
-					>
-						{showAll
-							? "Hide"
-							: `Show more (${
-									getCompletedProjects().length - 5
-							  } left)`}
-					</Button>
-				)}
 			</Card.Content>
 		</Card>
 	);
@@ -139,42 +54,14 @@ export default function ProjectsCard({ projectsUsers }: ProjectsCardProps) {
 const styles = StyleSheet.create({
 	card: {
 		marginVertical: 8,
+		minHeight: 80,
+		justifyContent: "center",
 	},
 	cardContent: {
-		gap: 16,
+		alignItems: "center",
+		justifyContent: "center",
 	},
 	title: {
 		fontWeight: "bold",
-	},
-	projectsContainer: {
-		gap: 12,
-	},
-	projectItem: {
-		gap: 8,
-	},
-	projectHeader: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
-	},
-	projectName: {
-		fontSize: 16,
-		fontWeight: "500",
-		flex: 1,
-		marginRight: 16,
-	},
-	projectMeta: {
-		flexDirection: "row",
-		alignItems: "center",
-		gap: 8,
-	},
-	projectMark: {
-		fontSize: 14,
-		fontWeight: "bold",
-		minWidth: 50,
-		textAlign: "right",
-	},
-	showMoreButton: {
-		alignSelf: "center",
 	},
 });
