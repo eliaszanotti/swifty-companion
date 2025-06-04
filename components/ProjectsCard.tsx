@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Card, Text, useTheme } from "react-native-paper";
+import { Card, Text } from "react-native-paper";
 
 interface ProjectUser {
 	id: number;
@@ -23,8 +23,6 @@ export default function ProjectsCard({
 	projectsUsers,
 	onPress,
 }: ProjectsCardProps) {
-	const theme = useTheme();
-
 	const hasProjects = () => {
 		return projectsUsers && projectsUsers.length > 0;
 	};

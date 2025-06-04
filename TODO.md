@@ -1,1 +1,1 @@
-Ajouter la location dans les clusters
+mettre le clavier de search en minuscule

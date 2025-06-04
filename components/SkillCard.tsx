@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Card, Text, useTheme } from "react-native-paper";
+import { Card, Text } from "react-native-paper";
 
 interface Skill {
 	id: number;
@@ -18,8 +18,6 @@ interface SkillCardProps {
 }
 
 export default function SkillCard({ cursusUsers, onPress }: SkillCardProps) {
-	const theme = useTheme();
-
 	const hasSkills = () => {
 		return cursusUsers?.some(
 			(cursusUser) => cursusUser.skills && cursusUser.skills.length > 0
