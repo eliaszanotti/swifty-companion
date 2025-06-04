@@ -1,3 +1,4 @@
+import PaperView from "@/components/PaperView";
 import { DarkPaperTheme, LightPaperTheme } from "@/constants/PaperTheme";
 import { AuthProvider } from "@/hooks/useAuthContext";
 import { useColorScheme } from "@/hooks/useColorScheme";
@@ -9,7 +10,6 @@ import {
 import { useFonts } from "expo-font";
 import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import "react-native-reanimated";
 import {
@@ -29,13 +29,7 @@ function RootLayoutWithInset() {
 				<ThemeProvider
 					value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
 				>
-					<View
-						style={{
-							flex: 1,
-							paddingTop: insets.top,
-							backgroundColor: paperTheme.colors.background,
-						}}
-					>
+					<PaperView style={{ paddingTop: insets.top }}>
 						<Stack>
 							<Stack.Screen
 								name="index"
@@ -50,7 +44,7 @@ function RootLayoutWithInset() {
 								options={{ headerShown: false }}
 							/>
 						</Stack>
-					</View>
+					</PaperView>
 					<StatusBar
 						style={colorScheme === "dark" ? "light" : "dark"}
 						backgroundColor="transparent"
