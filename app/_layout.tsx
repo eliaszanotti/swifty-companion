@@ -8,7 +8,7 @@ import {
 	ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Redirect, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { PaperProvider } from "react-native-paper";
 import "react-native-reanimated";
@@ -24,8 +24,8 @@ function RootLayoutWithInset() {
 		colorScheme === "dark" ? DarkPaperTheme : LightPaperTheme;
 
 	return (
-		<PaperProvider theme={paperTheme}>
-			<AuthProvider>
+		<AuthProvider>
+			<PaperProvider theme={paperTheme}>
 				<ThemeProvider
 					value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
 				>
@@ -50,8 +50,8 @@ function RootLayoutWithInset() {
 						backgroundColor="transparent"
 					/>
 				</ThemeProvider>
-			</AuthProvider>
-		</PaperProvider>
+			</PaperProvider>
+		</AuthProvider>
 	);
 }
 
@@ -69,8 +69,4 @@ export default function RootLayout() {
 			<RootLayoutWithInset />
 		</SafeAreaProvider>
 	);
-}
-
-export function Index() {
-	return <Redirect href="/(tabs)" />;
 }
