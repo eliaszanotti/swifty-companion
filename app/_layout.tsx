@@ -1,3 +1,4 @@
+import React from "react";
 import PaperView from "@/components/PaperView";
 import { DarkPaperTheme, LightPaperTheme } from "@/constants/PaperTheme";
 import { AuthProvider } from "@/hooks/useAuthContext";
@@ -37,6 +38,7 @@ export default function RootLayout() {
 function RootLayoutContent() {
 	const colorScheme = useColorScheme();
 	const insets = useSafeAreaInsets();
+
 	const paperTheme =
 		colorScheme === "dark" ? DarkPaperTheme : LightPaperTheme;
 
@@ -48,24 +50,24 @@ function RootLayoutContent() {
 				<PaperView style={{ paddingTop: insets.top, flex: 1 }}>
 					<Stack>
 						<Stack.Screen
-							name="index"
+							name="(tabs)"
 							options={{
-								title: "Swifty Companion",
 								headerShown: false,
-							}}
-						/>
-						<Stack.Screen
-							name="profile"
-							options={{
-								title: "Profil",
-								headerShown: false,
+								animation: "fade",
 							}}
 						/>
 						<Stack.Screen
 							name="login"
 							options={{
-								title: "Connexion",
 								headerShown: false,
+								animation: "slide_from_bottom",
+							}}
+						/>
+						<Stack.Screen
+							name="user/[login]"
+							options={{
+								headerShown: false,
+								presentation: "modal",
 							}}
 						/>
 					</Stack>

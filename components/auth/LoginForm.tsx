@@ -1,31 +1,27 @@
 import PaperView from "@/components/PaperView";
 import { useAuth } from "@/hooks/useAuthContext";
-import { router } from "expo-router";
-import React, { useEffect } from "react";
+import React from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { Appbar, Button, Card, Text } from "react-native-paper";
 
-export default function LoginPage() {
-	const { login, isLoggedIn, isLoading } = useAuth();
+interface LoginFormProps {
+	onLoginSuccess?: () => void;
+}
 
-	useEffect(() => {
-		if (isLoggedIn) {
-			router.replace("/(tabs)");
-		}
-	}, [isLoggedIn]);
+export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
+	const { login, isLoggedIn, isLoading } = useAuth();
 
 	const handleLogin = async () => {
 		await login();
+		onLoginSuccess?.();
 	};
 
 	if (isLoggedIn) {
 		return (
-			<PaperView style={styles.container}>
-				<View style={styles.loadingContainer}>
-					<ActivityIndicator size="large" />
-					<Text style={styles.loadingText}>Redirection...</Text>
-				</View>
-			</PaperView>
+			<View style={styles.loadingContainer}>
+				<ActivityIndicator size="large" />
+				<Text style={styles.loadingText}>Connexion réussie!</Text>
+			</View>
 		);
 	}
 

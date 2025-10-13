@@ -7,6 +7,7 @@ type AuthContextType = {
 	login: () => Promise<void>;
 	logout: () => void;
 	accessToken: string | null;
+	isLoading: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -14,6 +15,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [accessToken, setAccessToken] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const redirectUri = AuthSession.makeRedirectUri({
 		scheme: "swifty-companion",
@@ -59,20 +61,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 					setIsLoggedIn(true);
 				} catch (error) {
 					console.error("Error during token exchange:", error);
+				} finally {
+					setIsLoading(false);
 				}
 			})();
 		} else if (response?.type === "error") {
 			console.log("Error:", response.error);
+			setIsLoading(false);
 		} else if (response?.type === "cancel") {
 			console.log("Canceled by user");
+			setIsLoading(false);
 		}
 	}, [response, redirectUri]);
 
 	const login = async () => {
 		try {
+			setIsLoading(true);
 			await promptAsync();
 		} catch (error) {
 			console.error("Error opening 42 auth page", error);
+			setIsLoading(false);
 		}
 	};
 
@@ -88,6 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				login,
 				logout,
 				accessToken,
+				isLoading,
 			}}
 		>
 			{children}
