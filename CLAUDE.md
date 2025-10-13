@@ -101,3 +101,4 @@ Swifty Companion is an Expo React Native app for searching and viewing 42 school
 - Uses React Native Paper theming system
 - Dark/light theme support
 - 4-space indentation enforced by ESLint
+- Lance toujours tout avec pnpm
