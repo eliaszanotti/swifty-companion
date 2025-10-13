@@ -47,9 +47,6 @@ importers:
       react-native-paper:
         specifier: ^5.14.5
         version: 5.14.5(react-native-safe-area-context@5.6.1(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
-      react-native-reanimated:
-        specifier: ~3.17.4
-        version: 3.17.5(@babel/core@7.28.4)(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
       react-native-safe-area-context:
         specifier: ~5.6.0
         version: 5.6.1(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
@@ -4696,6 +4693,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.4
       '@babel/helper-plugin-utils': 7.27.1
+    optional: true
 
   '@babel/plugin-transform-typescript@7.28.0(@babel/core@7.28.4)':
     dependencies:
@@ -8150,6 +8148,7 @@ snapshots:
     dependencies:
       react: 19.1.0
       react-native: 0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(react@19.1.0)
+    optional: true
 
   react-native-is-edge-to-edge@1.2.1(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0):
     dependencies:
@@ -8184,6 +8183,7 @@ snapshots:
       react-native-is-edge-to-edge: 1.1.7(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   react-native-safe-area-context@5.6.1(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0):
     dependencies:
