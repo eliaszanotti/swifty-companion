@@ -10,7 +10,7 @@ interface ProfileCardProps {
 
 export default function ProfileCard({ profile }: ProfileCardProps) {
 	return (
-		<Card mode="elevated" style={styles.profileCard}>
+		<Card mode="elevated">
 			<Card.Content style={styles.profileContent}>
 				<UserAvatar
 					imageUrl={profile.image?.link}
@@ -32,9 +32,6 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
 }
 
 const styles = StyleSheet.create({
-	profileCard: {
-		padding: 16,
-	},
 	profileContent: {
 		flexDirection: "row",
 		alignItems: "center",

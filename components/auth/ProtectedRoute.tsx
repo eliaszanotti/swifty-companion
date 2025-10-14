@@ -1,7 +1,7 @@
 import { useAuth } from "@/hooks/useAuthContext";
 import { router } from "expo-router";
-import { ActivityIndicator, View, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 type ProtectedRouteProps = {
 	children: React.ReactNode;
@@ -12,7 +12,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
 	useEffect(() => {
 		if (!isLoading && !isLoggedIn) {
-			router.replace("/login");
+			router.push("/");
 		}
 	}, [isLoggedIn, isLoading]);
 

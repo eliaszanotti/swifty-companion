@@ -13,16 +13,9 @@ export default function UserSkillsCard({ profile }: UserSkillsCardProps) {
 			{profile.cursus_users.map((cursus, cursusIndex) => {
 				const skills = cursus.skills || [];
 				return (
-					<Card
-						key={cursusIndex}
-						mode="elevated"
-						style={styles.infoCard}
-					>
+					<Card key={cursusIndex} mode="elevated">
 						<Card.Content>
-							<Text
-								variant="titleMedium"
-								style={styles.infoTitle}
-							>
+							<Text style={styles.infoTitle}>
 								{cursus.cursus.name} - {cursus.level.toFixed(2)}
 								%
 							</Text>
@@ -46,9 +39,6 @@ export default function UserSkillsCard({ profile }: UserSkillsCardProps) {
 }
 
 const styles = StyleSheet.create({
-	infoCard: {
-		padding: 16,
-	},
 	infoTitle: {
 		marginBottom: 12,
 	},

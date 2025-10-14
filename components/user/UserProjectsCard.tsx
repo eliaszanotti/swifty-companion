@@ -1,38 +1,49 @@
+import { User } from "@/types/api";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Card, Text } from "react-native-paper";
-import { User } from "@/types/api";
+import { Card, Text, useTheme } from "react-native-paper";
 
 interface UserProjectsCardProps {
 	profile: User;
-	isCurrentUser?: boolean;
 }
 
-export default function UserProjectsCard({ profile, isCurrentUser = false }: UserProjectsCardProps) {
-	const displayProjects = profile.projects_users
-		.filter((project) => project.project?.cursus_ids?.length > 0)
-		.slice(0, isCurrentUser ? 6 : 5);
-
-	if (displayProjects.length === 0) {
-		return null;
-	}
+export default function UserProjectsCard({ profile }: UserProjectsCardProps) {
+	const theme = useTheme();
+	const displayProjects = profile.projects_users;
+	console.log(JSON.stringify(displayProjects[0], null, 2));
 
 	return (
-		<Card mode="elevated" style={styles.infoCard}>
+		<Card mode="elevated">
 			<Card.Content>
 				<Text variant="titleMedium" style={styles.infoTitle}>
-					{isCurrentUser ? "Mes projets" : "Projets récents"}
+					Projets
 				</Text>
 				<View style={styles.projectsContainer}>
 					{displayProjects.map((project, index) => (
-						<View key={index} style={styles.projectItem}>
-							<Text variant="bodySmall">
+						<View
+							key={index}
+							style={[
+								{
+									padding: 8,
+									borderRadius: 8,
+									backgroundColor:
+										theme.colors.secondaryContainer,
+								},
+							]}
+						>
+							<Text
+								variant="bodyMedium"
+								style={{
+									color: theme.colors.onSecondaryContainer,
+								}}
+							>
 								{project.project?.name}
 							</Text>
-							{project.validated ? (
-								<Text style={styles.validated}>✓ Validé</Text>
-							) : (
-								<Text style={styles.notValidated}>✗ Non validé</Text>
+							<Text>{project.status}</Text>
+							{project.final_mark && (
+								<Text variant="bodySmall">
+									Note: {project.final_mark}/100
+								</Text>
 							)}
 						</View>
 					))}
@@ -43,27 +54,10 @@ export default function UserProjectsCard({ profile, isCurrentUser = false }: Use
 }
 
 const styles = StyleSheet.create({
-	infoCard: {
-		padding: 16,
-	},
 	infoTitle: {
 		marginBottom: 12,
 	},
 	projectsContainer: {
-		gap: 8,
-	},
-	projectItem: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
-		paddingVertical: 4,
-	},
-	validated: {
-		color: "#4CAF50",
-		fontWeight: "bold",
-	},
-	notValidated: {
-		color: "#F44336",
-		fontWeight: "bold",
+		gap: 12,
 	},
 });
