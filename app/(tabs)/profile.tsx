@@ -17,7 +17,7 @@ export default function ProfileTab() {
 		setShowLogoutDialog(false);
 		try {
 			await logout();
-		} catch (error) {
+		} catch {
 			Alert.alert("Error", "Failed to logout. Please try again.");
 		}
 	};

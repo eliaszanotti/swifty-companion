@@ -1,6 +1,5 @@
 import { useAuth } from "@/hooks/useAuthContext";
-import { Stack } from "expo-router";
-import { Redirect } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import React from "react";
 import { PaperProvider } from "react-native-paper";
 

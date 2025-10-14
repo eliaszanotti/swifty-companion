@@ -12,7 +12,7 @@ export default function LoginPage() {
 		if (authError) {
 			clearAuthError();
 		}
-	}, []);
+	}, [authError, clearAuthError]);
 
 	const handleLogin = async () => {
 		clearAuthError();

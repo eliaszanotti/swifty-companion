@@ -29,7 +29,7 @@ export default function AuthErrorPage() {
 							Authentication Failed
 						</Text>
 						<Text variant="bodyLarge" style={styles.errorMessage}>
-							We couldn't authenticate you with 42. This could be due to:
+							We couldn&apos;t authenticate you with 42. This could be due to:
 						</Text>
 						<View style={styles.reasonList}>
 							<Text variant="bodyMedium">• Network connection issues</Text>
