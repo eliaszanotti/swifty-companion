@@ -19,36 +19,36 @@ export default function UserProjectsCard({ profile }: UserProjectsCardProps) {
 				</Text>
 				<View style={styles.projectsContainer}>
 					{displayProjects.map((project, index) => (
-						project?.project?.name && (
-							<View
-								key={index}
-								style={[
-									{
-										padding: 8,
-										borderRadius: 8,
-										backgroundColor:
-											theme.colors.secondaryContainer,
-										flexDirection: "column",
-										gap: 4,
-									},
-								]}
+						<View
+							key={index}
+							style={[
+								{
+									padding: 8,
+									borderRadius: 8,
+									backgroundColor:
+										theme.colors.secondaryContainer,
+									flexDirection: "column",
+									gap: 4,
+								},
+							]}
+						>
+							<Text
+								style={{
+									color: theme.colors.onSecondaryContainer,
+									fontWeight: "bold",
+								}}
 							>
-								<Text
-									style={{
-										color: theme.colors.onSecondaryContainer,
-										fontWeight: "bold",
-									}}
-								>
-									{project.project.name}
+								{project.project.name || "No name"}
+							</Text>
+							<Text variant="labelSmall">
+								{project.status || "No status"}
+							</Text>
+							{project.final_mark && (
+								<Text variant="labelSmall">
+									Grade: {project.final_mark}/100
 								</Text>
-								<Text variant="labelSmall">{project.status || 'No status'}</Text>
-								{project.final_mark && (
-									<Text variant="labelSmall">
-										Grade: {project.final_mark}/100
-									</Text>
-								)}
-							</View>
-						)
+							)}
+						</View>
 					))}
 				</View>
 			</Card.Content>
