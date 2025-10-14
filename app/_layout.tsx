@@ -1,7 +1,6 @@
-import React from "react";
 import PaperView from "@/components/PaperView";
 import { DarkPaperTheme, LightPaperTheme } from "@/constants/PaperTheme";
-import { AuthProvider } from "@/hooks/useAuthContext";
+import { AuthProvider, useAuth } from "@/hooks/useAuthContext";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import {
 	DarkTheme,
@@ -9,16 +8,14 @@ import {
 	ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import React, { useEffect } from "react";
 import { PaperProvider } from "react-native-paper";
 import {
 	SafeAreaProvider,
 	useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { useEffect } from "react";
-import { router } from "expo-router";
-import { useAuth } from "@/hooks/useAuthContext";
 
 export default function RootLayout() {
 	const [loaded] = useFonts({
@@ -51,7 +48,7 @@ function RootLayoutContent() {
 			if (isLoggedIn) {
 				router.replace("/(tabs)");
 			} else {
-				router.replace("/login");
+				router.replace("/");
 			}
 		}
 	}, [isLoggedIn, isLoading]);
@@ -64,7 +61,7 @@ function RootLayoutContent() {
 				<PaperView style={{ paddingTop: insets.top, flex: 1 }}>
 					<Stack>
 						<Stack.Screen
-							name="login"
+							name="index"
 							options={{
 								headerShown: false,
 							}}

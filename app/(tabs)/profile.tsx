@@ -2,7 +2,13 @@ import PaperView from "@/components/PaperView";
 import { useAuth } from "@/hooks/useAuthContext";
 import { useProfileApi } from "@/hooks/useProfileApi";
 import React from "react";
-import { ActivityIndicator, Image, ScrollView, StyleSheet, View } from "react-native";
+import {
+	ActivityIndicator,
+	Image,
+	ScrollView,
+	StyleSheet,
+	View,
+} from "react-native";
 import { Appbar, Button, Card, Chip, Text } from "react-native-paper";
 
 export default function ProfileTab() {
