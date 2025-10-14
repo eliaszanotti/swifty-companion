@@ -7,11 +7,10 @@ export function useSearchApi() {
 	const { searchQuery, setUsers, setIsLoading, setError } = useSearchStore();
 
 	useEffect(() => {
-		const searchUsers = async (query?: string) => {
-			const searchTerm = query || searchQuery;
-
-			if (!searchTerm.trim() || searchTerm.trim().length < 3) {
+		const timeoutId = setTimeout(async () => {
+			if (!searchQuery.trim() || searchQuery.trim().length < 3) {
 				setUsers([]);
+				setIsLoading(false);
 				return;
 			}
 
@@ -19,7 +18,7 @@ export function useSearchApi() {
 			setError(null);
 
 			try {
-				const searchLower = searchTerm.toLowerCase();
+				const searchLower = searchQuery.toLowerCase();
 				const rangeEnd =
 					searchLower.slice(0, -1) +
 					String.fromCharCode(
@@ -49,14 +48,6 @@ export function useSearchApi() {
 				setUsers([]);
 			} finally {
 				setIsLoading(false);
-			}
-		};
-
-		const timeoutId = setTimeout(() => {
-			if (searchQuery.trim() && searchQuery.trim().length >= 3) {
-				searchUsers();
-			} else {
-				setUsers([]);
 			}
 		}, 300);
 

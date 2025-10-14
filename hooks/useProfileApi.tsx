@@ -1,22 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "./useAuthContext";
-
-interface UserInfo {
-	id: number;
-	login: string;
-	displayname: string;
-	email: string;
-	image: {
-		link: string;
-	};
-	cursus_users: any[];
-	projects_users: any[];
-	location?: string;
-}
+import { User } from "@/types/api";
 
 export function useProfileApi(userId?: string) {
 	const { accessToken } = useAuth();
-	const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+	const [userInfo, setUserInfo] = useState<User | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
