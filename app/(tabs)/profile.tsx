@@ -10,7 +10,7 @@ export default function ProfileTab() {
 	return (
 		<PaperView>
 			<Appbar.Header>
-				<Appbar.Content title="Mon Profil" />
+				<Appbar.Content title="Profile" />
 				<Appbar.Action icon="logout" onPress={logout} />
 			</Appbar.Header>
 			<UserProfileScreen />

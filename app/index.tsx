@@ -23,7 +23,7 @@ export default function LoginPage() {
 			<PaperView style={styles.container}>
 				<View style={styles.loadingContainer}>
 					<ActivityIndicator size="large" />
-					<Text style={styles.loadingText}>Redirection...</Text>
+					<Text style={styles.loadingText}>Redirecting...</Text>
 				</View>
 			</PaperView>
 		);
@@ -32,7 +32,7 @@ export default function LoginPage() {
 	return (
 		<PaperView style={styles.container}>
 			<Appbar.Header>
-				<Appbar.Content title="Connexion" />
+				<Appbar.Content title="Login" />
 			</Appbar.Header>
 
 			<View style={styles.content}>
@@ -40,8 +40,7 @@ export default function LoginPage() {
 					<Card.Content style={styles.cardContent}>
 						<Text variant="headlineMedium">Swifty Companion</Text>
 						<Text variant="bodyLarge">
-							Connectez-vous avec votre compte 42 pour accéder à
-							votre profil
+							Connect with your 42 account to access your profile
 						</Text>
 
 						<Button
@@ -53,12 +52,12 @@ export default function LoginPage() {
 							contentStyle={styles.loginButtonContent}
 						>
 							{isLoading
-								? "Connexion..."
-								: "Se connecter avec 42"}
+								? "Connecting..."
+								: "Connect with 42"}
 						</Button>
 
 						<Text variant="bodySmall" style={styles.securityNote}>
-							Vos identifiants sont sécurisés avec OAuth2
+							Your credentials are secured with OAuth2
 						</Text>
 					</Card.Content>
 				</Card>

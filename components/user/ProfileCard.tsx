@@ -20,10 +20,10 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
 				<View style={styles.profileInfo}>
 					<Text>{profile.login}</Text>
 					<Text variant="bodyLarge">
-						{profile.displayname || "Pas de nom"}
+						{profile.displayname || "No name"}
 					</Text>
 					<Text style={styles.email}>
-						{profile.email || "Pas d'email"}
+						{profile.email || "No email"}
 					</Text>
 				</View>
 			</Card.Content>

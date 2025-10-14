@@ -16,7 +16,7 @@ export default function UserProjectsCard({ profile }: UserProjectsCardProps) {
 		<Card mode="elevated">
 			<Card.Content>
 				<Text variant="titleMedium" style={styles.infoTitle}>
-					Projets
+					Projects
 				</Text>
 				<View style={styles.projectsContainer}>
 					{displayProjects.map((project, index) => (
@@ -44,7 +44,7 @@ export default function UserProjectsCard({ profile }: UserProjectsCardProps) {
 							<Text variant="labelSmall">{project.status}</Text>
 							{project.final_mark && (
 								<Text variant="labelSmall">
-									Note: {project.final_mark}/100
+									Grade: {project.final_mark}/100
 								</Text>
 							)}
 						</View>

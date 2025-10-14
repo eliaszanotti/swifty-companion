@@ -25,7 +25,7 @@ function SearchContent() {
 				<View style={styles.contentView}>
 					{users.length > 0 && (
 						<View style={styles.resultsContainer}>
-							<Text>Résultats ({users.length})</Text>
+							<Text>Results ({users.length})</Text>
 							<ScrollView>
 								{users.map((user: any) => (
 									<UserListItem key={user.id} user={user} />
@@ -39,8 +39,8 @@ function SearchContent() {
 						searchQuery.trim().length >= 3 &&
 						users.length === 0 && (
 							<EmptyState
-								title="Aucun utilisateur trouvé"
-								message={`Aucun utilisateur trouvé pour "${searchQuery}"`}
+								title="No user found"
+								message={`No user found for "${searchQuery}"`}
 								icon="🔍"
 							/>
 						)}
