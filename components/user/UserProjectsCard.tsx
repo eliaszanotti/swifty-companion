@@ -28,20 +28,22 @@ export default function UserProjectsCard({ profile }: UserProjectsCardProps) {
 									borderRadius: 8,
 									backgroundColor:
 										theme.colors.secondaryContainer,
+									flexDirection: "column",
+									gap: 4,
 								},
 							]}
 						>
 							<Text
-								variant="bodyMedium"
 								style={{
 									color: theme.colors.onSecondaryContainer,
+									fontWeight: "bold",
 								}}
 							>
 								{project.project?.name}
 							</Text>
-							<Text>{project.status}</Text>
+							<Text variant="labelSmall">{project.status}</Text>
 							{project.final_mark && (
-								<Text variant="bodySmall">
+								<Text variant="labelSmall">
 									Note: {project.final_mark}/100
 								</Text>
 							)}
