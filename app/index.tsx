@@ -38,27 +38,11 @@ export default function LoginPage() {
 			<View style={styles.content}>
 				<Card mode="elevated" style={styles.card}>
 					<Card.Content style={styles.cardContent}>
-						<Text variant="headlineMedium" style={styles.title}>
-							Swifty Companion
+						<Text variant="headlineMedium">Swifty Companion</Text>
+						<Text variant="bodyLarge">
+							Connectez-vous avec votre compte 42 pour accéder à
+							votre profil
 						</Text>
-						<Text variant="bodyLarge" style={styles.subtitle}>
-							Connectez-vous avec votre compte 42 pour accéder à votre profil
-						</Text>
-
-						<View style={styles.features}>
-							<Text variant="titleSmall" style={styles.featuresTitle}>
-								Avec la connexion, vous pouvez :
-							</Text>
-							<View style={styles.featureItem}>
-								<Text>• Voir votre profil complet</Text>
-							</View>
-							<View style={styles.featureItem}>
-								<Text>• Consulter vos compétences et projets</Text>
-							</View>
-							<View style={styles.featureItem}>
-								<Text>• Rechercher d&apos;autres étudiants</Text>
-							</View>
-						</View>
 
 						<Button
 							mode="contained"
@@ -68,7 +52,9 @@ export default function LoginPage() {
 							style={styles.loginButton}
 							contentStyle={styles.loginButtonContent}
 						>
-							{isLoading ? "Connexion..." : "Se connecter avec 42"}
+							{isLoading
+								? "Connexion..."
+								: "Se connecter avec 42"}
 						</Button>
 
 						<Text variant="bodySmall" style={styles.securityNote}>
@@ -96,24 +82,6 @@ const styles = StyleSheet.create({
 	cardContent: {
 		alignItems: "center",
 		gap: 24,
-	},
-	title: {
-		textAlign: "center",
-	},
-	subtitle: {
-		textAlign: "center",
-		lineHeight: 20,
-	},
-	features: {
-		alignSelf: "flex-start",
-		width: "100%",
-		gap: 8,
-	},
-	featuresTitle: {
-		marginBottom: 8,
-	},
-	featureItem: {
-		paddingLeft: 8,
 	},
 	loginButton: {
 		width: "100%",
