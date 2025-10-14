@@ -16,6 +16,9 @@ import {
 	SafeAreaProvider,
 	useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import { useEffect } from "react";
+import { router } from "expo-router";
+import { useAuth } from "@/hooks/useAuthContext";
 
 export default function RootLayout() {
 	const [loaded] = useFonts({
@@ -38,9 +41,20 @@ export default function RootLayout() {
 function RootLayoutContent() {
 	const colorScheme = useColorScheme();
 	const insets = useSafeAreaInsets();
+	const { isLoggedIn, isLoading } = useAuth();
 
 	const paperTheme =
 		colorScheme === "dark" ? DarkPaperTheme : LightPaperTheme;
+
+	useEffect(() => {
+		if (!isLoading) {
+			if (isLoggedIn) {
+				router.replace("/(tabs)");
+			} else {
+				router.replace("/login");
+			}
+		}
+	}, [isLoggedIn, isLoading]);
 
 	return (
 		<PaperProvider theme={paperTheme}>
@@ -50,17 +64,17 @@ function RootLayoutContent() {
 				<PaperView style={{ paddingTop: insets.top, flex: 1 }}>
 					<Stack>
 						<Stack.Screen
-							name="(tabs)"
-							options={{
-								headerShown: false,
-								animation: "fade",
-							}}
-						/>
-						<Stack.Screen
 							name="login"
 							options={{
 								headerShown: false,
 								animation: "slide_from_bottom",
+							}}
+						/>
+						<Stack.Screen
+							name="(tabs)"
+							options={{
+								headerShown: false,
+								animation: "fade",
 							}}
 						/>
 						<Stack.Screen

@@ -1,6 +1,7 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import { BottomNavigation, Icon } from "react-native-paper";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 function TabLayout() {
 	return (
@@ -79,5 +80,9 @@ function TabLayout() {
 }
 
 export default function TabsLayout() {
-	return <TabLayout />;
+	return (
+		<ProtectedRoute>
+			<TabLayout />
+		</ProtectedRoute>
+	);
 }

@@ -1,24 +1,13 @@
-import LoginForm from "@/components/auth/LoginForm";
 import PaperView from "@/components/PaperView";
 import { useAuth } from "@/hooks/useAuthContext";
 import { useProfileApi } from "@/hooks/useProfileApi";
-import React, { useState } from "react";
+import React from "react";
 import { ActivityIndicator, Image, StyleSheet, View } from "react-native";
 import { Appbar, Button, Card, Chip, Text } from "react-native-paper";
 
 export default function ProfileTab() {
-	const { isLoggedIn, logout } = useAuth();
+	const { logout } = useAuth();
 	const { userInfo: profile, loading: isLoading, error } = useProfileApi();
-	const [showLoginForm, setShowLoginForm] = useState(!isLoggedIn);
-
-	const handleLoginSuccess = () => {
-		setShowLoginForm(false);
-	};
-
-	// Afficher le formulaire de connexion si non connecté
-	if (!isLoggedIn || showLoginForm) {
-		return <LoginForm onLoginSuccess={handleLoginSuccess} />;
-	}
 
 	if (isLoading) {
 		return (
