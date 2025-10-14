@@ -9,8 +9,7 @@ interface UserProjectsCardProps {
 
 export default function UserProjectsCard({ profile }: UserProjectsCardProps) {
 	const theme = useTheme();
-	const displayProjects = profile.projects_users;
-	console.log(JSON.stringify(displayProjects[0], null, 2));
+	const displayProjects = profile.projects_users || [];
 
 	return (
 		<Card mode="elevated">
@@ -20,34 +19,36 @@ export default function UserProjectsCard({ profile }: UserProjectsCardProps) {
 				</Text>
 				<View style={styles.projectsContainer}>
 					{displayProjects.map((project, index) => (
-						<View
-							key={index}
-							style={[
-								{
-									padding: 8,
-									borderRadius: 8,
-									backgroundColor:
-										theme.colors.secondaryContainer,
-									flexDirection: "column",
-									gap: 4,
-								},
-							]}
-						>
-							<Text
-								style={{
-									color: theme.colors.onSecondaryContainer,
-									fontWeight: "bold",
-								}}
+						project?.project?.name && (
+							<View
+								key={index}
+								style={[
+									{
+										padding: 8,
+										borderRadius: 8,
+										backgroundColor:
+											theme.colors.secondaryContainer,
+										flexDirection: "column",
+										gap: 4,
+									},
+								]}
 							>
-								{project.project?.name}
-							</Text>
-							<Text variant="labelSmall">{project.status}</Text>
-							{project.final_mark && (
-								<Text variant="labelSmall">
-									Grade: {project.final_mark}/100
+								<Text
+									style={{
+										color: theme.colors.onSecondaryContainer,
+										fontWeight: "bold",
+									}}
+								>
+									{project.project.name}
 								</Text>
-							)}
-						</View>
+								<Text variant="labelSmall">{project.status || 'No status'}</Text>
+								{project.final_mark && (
+									<Text variant="labelSmall">
+										Grade: {project.final_mark}/100
+									</Text>
+								)}
+							</View>
+						)
 					))}
 				</View>
 			</Card.Content>
