@@ -1,7 +1,7 @@
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { Tabs } from "expo-router";
 import React from "react";
 import { BottomNavigation, Icon } from "react-native-paper";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 function TabLayout() {
 	return (
@@ -25,7 +25,10 @@ function TabLayout() {
 						} else {
 							navigation.dispatch({
 								target: state.key,
-								...navigation.navigate(route.name, route.params),
+								...navigation.navigate(
+									route.name,
+									route.params
+								),
 							});
 						}
 					}}
@@ -52,7 +55,7 @@ function TabLayout() {
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Recherche",
+					title: "Search",
 					tabBarIcon: ({ color, focused }) => (
 						<Icon
 							source={focused ? "magnify" : "magnify"}
@@ -65,7 +68,7 @@ function TabLayout() {
 			<Tabs.Screen
 				name="profile"
 				options={{
-					title: "Profil",
+					title: "Profile",
 					tabBarIcon: ({ color, focused }) => (
 						<Icon
 							source={focused ? "account" : "account-outline"}

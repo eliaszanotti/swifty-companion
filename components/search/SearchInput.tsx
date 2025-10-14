@@ -25,13 +25,13 @@ export default function SearchInput({
 	return (
 		<Card mode="elevated">
 			<Card.Title
-				title="Rechercher un étudiant"
-				subtitle="Entrez au moins 3 caractères"
+				title="Search for a student"
+				subtitle="Enter at least 3 characters"
 			/>
 			<Card.Content>
 				<TextInput
 					mode="outlined"
-					placeholder="Recherchez un login 42..."
+					placeholder="Search for a 42 login..."
 					value={value || ""}
 					onChangeText={handleTextChange}
 					right={

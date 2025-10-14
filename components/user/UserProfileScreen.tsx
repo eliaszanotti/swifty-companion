@@ -22,22 +22,22 @@ export default function UserProfileScreen({
 	const profile = providedProfile || fetchedProfile;
 
 	if (isLoading) {
-		return <LoadingState message="Chargement du profil..." />;
+		return <LoadingState message="Loading profile..." />;
 	}
 
 	if (error || !profile) {
 		return (
 			<ErrorState
-				title="Erreur de chargement"
+				title="Loading error"
 				message={
 					error ||
 					(userId
-						? "Utilisateur non trouvé"
-						: "Impossible de charger votre profil")
+						? "User not found"
+						: "Unable to load your profile")
 				}
 				onRetry={userId ? undefined : () => window.location.reload()}
-				dismissText={userId ? "Retour" : undefined}
-				retryText={userId ? undefined : "Réessayer"}
+				dismissText={userId ? "Back" : undefined}
+				retryText={userId ? undefined : "Retry"}
 			/>
 		);
 	}

@@ -11,7 +11,7 @@ export default function UserProfilePage() {
 		<PaperView>
 			<Appbar.Header>
 				<Appbar.BackAction onPress={() => router.back()} />
-				<Appbar.Content title="Profil" />
+				<Appbar.Content title="Profile" />
 			</Appbar.Header>
 			<UserProfileScreen userId={login as string} />
 		</PaperView>
