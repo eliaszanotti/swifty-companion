@@ -51,7 +51,7 @@ function RootLayoutContent() {
 			if (isLoggedIn) {
 				router.replace("/(tabs)");
 			} else {
-				router.replace("/");
+				router.replace("/login");
 			}
 		}
 	}, [isLoggedIn, isLoading]);
@@ -64,7 +64,7 @@ function RootLayoutContent() {
 				<PaperView style={{ paddingTop: insets.top, flex: 1 }}>
 					<Stack>
 						<Stack.Screen
-							name="index"
+							name="login"
 							options={{
 								headerShown: false,
 							}}
