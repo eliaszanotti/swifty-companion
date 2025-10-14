@@ -2,7 +2,7 @@ import PaperView from "@/components/PaperView";
 import { useAuth } from "@/hooks/useAuthContext";
 import { useProfileApi } from "@/hooks/useProfileApi";
 import React from "react";
-import { ActivityIndicator, Image, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, StyleSheet, View } from "react-native";
 import { Appbar, Button, Card, Chip, Text } from "react-native-paper";
 
 export default function ProfileTab() {
@@ -19,7 +19,9 @@ export default function ProfileTab() {
 
 				<View style={styles.loadingContainer}>
 					<ActivityIndicator size="large" />
-					<Text style={styles.loadingText}>Chargement du profil...</Text>
+					<Text style={styles.loadingText}>
+						Chargement du profil...
+					</Text>
 				</View>
 			</PaperView>
 		);
@@ -36,7 +38,10 @@ export default function ProfileTab() {
 				<View style={styles.errorContainer}>
 					<Card mode="outlined" style={styles.errorCard}>
 						<Card.Content>
-							<Text variant="titleMedium" style={styles.errorTitle}>
+							<Text
+								variant="titleMedium"
+								style={styles.errorTitle}
+							>
 								Erreur de chargement
 							</Text>
 							<Text variant="bodyMedium" style={styles.errorText}>
@@ -56,7 +61,7 @@ export default function ProfileTab() {
 				<Appbar.Action icon="logout" onPress={logout} />
 			</Appbar.Header>
 
-			<View style={styles.content}>
+			<ScrollView style={styles.content}>
 				{/* Carte profil principale */}
 				<Card mode="elevated" style={styles.profileCard}>
 					<Card.Content style={styles.profileContent}>
@@ -66,7 +71,12 @@ export default function ProfileTab() {
 								style={styles.avatar}
 							/>
 						) : (
-							<View style={[styles.avatar, styles.avatarPlaceholder]}>
+							<View
+								style={[
+									styles.avatar,
+									styles.avatarPlaceholder,
+								]}
+							>
 								<Text variant="headlineLarge">
 									{profile.login.charAt(0).toUpperCase()}
 								</Text>
@@ -74,9 +84,13 @@ export default function ProfileTab() {
 						)}
 
 						<View style={styles.profileInfo}>
-							<Text variant="headlineMedium">{profile.login}</Text>
+							<Text variant="headlineMedium">
+								{profile.login}
+							</Text>
 							{profile.displayname && (
-								<Text variant="bodyLarge">{profile.displayname}</Text>
+								<Text variant="bodyLarge">
+									{profile.displayname}
+								</Text>
 							)}
 							{profile.email && (
 								<Text variant="bodyMedium" style={styles.email}>
@@ -89,9 +103,12 @@ export default function ProfileTab() {
 
 				{/* Informations générales */}
 				{profile.campus && (
-					<Card mode="outlined" style={styles.infoCard}>
+					<Card mode="elevated" style={styles.infoCard}>
 						<Card.Content>
-							<Text variant="titleMedium" style={styles.infoTitle}>
+							<Text
+								variant="titleMedium"
+								style={styles.infoTitle}
+							>
 								Informations
 							</Text>
 							{profile.campus.length > 0 && (
@@ -124,9 +141,12 @@ export default function ProfileTab() {
 
 				{/* Niveau et wallet */}
 				{(profile.cursus_users?.length > 0 || profile.wallet) && (
-					<Card mode="outlined" style={styles.infoCard}>
+					<Card mode="elevated" style={styles.infoCard}>
 						<Card.Content>
-							<Text variant="titleMedium" style={styles.infoTitle}>
+							<Text
+								variant="titleMedium"
+								style={styles.infoTitle}
+							>
 								Progression
 							</Text>
 
@@ -135,7 +155,9 @@ export default function ProfileTab() {
 									<Text variant="bodySmall">Niveau:</Text>
 									<Text>
 										{profile.cursus_users[0].grade} -
-										{profile.cursus_users[0].level?.toFixed(2)}
+										{profile.cursus_users[0].level?.toFixed(
+											2
+										)}
 									</Text>
 								</View>
 							)}
@@ -152,21 +174,21 @@ export default function ProfileTab() {
 
 				{/* Compétences principales */}
 				{profile.cursus_users?.[0]?.skills?.length > 0 && (
-					<Card mode="outlined" style={styles.infoCard}>
+					<Card mode="elevated" style={styles.infoCard}>
 						<Card.Content>
-							<Text variant="titleMedium" style={styles.infoTitle}>
+							<Text
+								variant="titleMedium"
+								style={styles.infoTitle}
+							>
 								Mes compétences
 							</Text>
 							<View style={styles.skillsContainer}>
 								{profile.cursus_users[0].skills
 									.slice(0, 8)
 									.map((skill: any, index: number) => (
-										<Chip
-											key={index}
-											style={styles.skillChip}
-											textStyle={styles.skillText}
-										>
-											{skill.name}: {skill.level.toFixed(1)}
+										<Chip key={index}>
+											{skill.name}:{" "}
+											{skill.level.toFixed(1)}
 										</Chip>
 									))}
 							</View>
@@ -176,24 +198,40 @@ export default function ProfileTab() {
 
 				{/* Projets récents */}
 				{profile.projects_users?.length > 0 && (
-					<Card mode="outlined" style={styles.infoCard}>
+					<Card mode="elevated" style={styles.infoCard}>
 						<Card.Content>
-							<Text variant="titleMedium" style={styles.infoTitle}>
+							<Text
+								variant="titleMedium"
+								style={styles.infoTitle}
+							>
 								Mes projets
 							</Text>
 							<View style={styles.projectsContainer}>
 								{profile.projects_users
 									.slice(0, 6)
-									.filter((project: any) => project.project?.cursus_ids?.length > 0)
+									.filter(
+										(project: any) =>
+											project.project?.cursus_ids
+												?.length > 0
+									)
 									.map((project: any, index: number) => (
-										<View key={index} style={styles.projectItem}>
+										<View
+											key={index}
+											style={styles.projectItem}
+										>
 											<Text variant="bodySmall">
 												{project.project?.name}
 											</Text>
 											{project.validated ? (
-												<Text style={styles.validated}>✓ Validé</Text>
+												<Text style={styles.validated}>
+													✓ Validé
+												</Text>
 											) : (
-												<Text style={styles.notValidated}>✗ Non validé</Text>
+												<Text
+													style={styles.notValidated}
+												>
+													✗ Non validé
+												</Text>
 											)}
 										</View>
 									))}
@@ -210,7 +248,7 @@ export default function ProfileTab() {
 				>
 					Déconnexion
 				</Button>
-			</View>
+			</ScrollView>
 		</PaperView>
 	);
 }
