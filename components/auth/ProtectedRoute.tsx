@@ -1,6 +1,6 @@
+import { Redirect } from "expo-router";
 import { useAuth } from "@/hooks/useAuthContext";
-import { router } from "expo-router";
-import React, { useEffect } from "react";
+import React from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 type ProtectedRouteProps = {
@@ -9,12 +9,6 @@ type ProtectedRouteProps = {
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 	const { isLoggedIn, isLoading } = useAuth();
-
-	useEffect(() => {
-		if (!isLoading && !isLoggedIn) {
-			router.push("/");
-		}
-	}, [isLoggedIn, isLoading]);
 
 	if (isLoading) {
 		return (
@@ -25,11 +19,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 	}
 
 	if (!isLoggedIn) {
-		return (
-			<View style={styles.container}>
-				<ActivityIndicator size="large" />
-			</View>
-		);
+		return <Redirect href="/(auth)" />;
 	}
 
 	return <>{children}</>;

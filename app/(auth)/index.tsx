@@ -2,32 +2,26 @@ import PaperView from "@/components/PaperView";
 import { useAuth } from "@/hooks/useAuthContext";
 import { router } from "expo-router";
 import React, { useEffect } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Appbar, Button, Card, Text } from "react-native-paper";
 
 export default function LoginPage() {
-	const { login, isLoggedIn, isLoading } = useAuth();
+	const { login, isLoading, authError, clearAuthError } = useAuth();
 
 	useEffect(() => {
-		if (isLoggedIn) {
-			router.replace("/(tabs)");
+		if (authError) {
+			clearAuthError();
 		}
-	}, [isLoggedIn]);
+	}, []);
 
 	const handleLogin = async () => {
+		clearAuthError();
 		await login();
 	};
 
-	if (isLoggedIn) {
-		return (
-			<PaperView style={styles.container}>
-				<View style={styles.loadingContainer}>
-					<ActivityIndicator size="large" />
-					<Text style={styles.loadingText}>Redirecting...</Text>
-				</View>
-			</PaperView>
-		);
-	}
+	const handleShowError = () => {
+		router.push("/(auth)/error");
+	};
 
 	return (
 		<PaperView style={styles.container}>
@@ -59,6 +53,20 @@ export default function LoginPage() {
 						<Text variant="bodySmall" style={styles.securityNote}>
 							Your credentials are secured with OAuth2
 						</Text>
+
+						{authError && (
+							<View style={styles.errorContainer}>
+								<Text style={styles.errorText}>{authError}</Text>
+								<Button
+									mode="text"
+									onPress={handleShowError}
+									compact
+									style={styles.errorButton}
+								>
+									Learn More
+								</Button>
+							</View>
+						)}
 					</Card.Content>
 				</Card>
 			</View>
@@ -103,5 +111,22 @@ const styles = StyleSheet.create({
 	},
 	loadingText: {
 		fontStyle: "italic",
+	},
+	errorContainer: {
+		width: "100%",
+		padding: 12,
+		backgroundColor: "#ffebee",
+		borderRadius: 8,
+		borderWidth: 1,
+		borderColor: "#ffcdd2",
+	},
+	errorText: {
+		color: "#c62828",
+		textAlign: "center",
+		fontSize: 14,
+	},
+	errorButton: {
+		marginTop: 4,
+		alignSelf: "center",
 	},
 });

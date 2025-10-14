@@ -8,9 +8,10 @@ import {
 	ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack, router } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
+import React from "react";
+import { ActivityIndicator, Text, View } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import {
 	SafeAreaProvider,
@@ -38,20 +39,37 @@ export default function RootLayout() {
 function RootLayoutContent() {
 	const colorScheme = useColorScheme();
 	const insets = useSafeAreaInsets();
-	const { isLoggedIn, isLoading } = useAuth();
+	const { isLoading } = useAuth();
 
 	const paperTheme =
 		colorScheme === "dark" ? DarkPaperTheme : LightPaperTheme;
 
-	useEffect(() => {
-		if (!isLoading) {
-			if (isLoggedIn) {
-				router.replace("/(tabs)");
-			} else {
-				router.replace("/");
-			}
-		}
-	}, [isLoggedIn, isLoading]);
+	if (isLoading) {
+		return (
+			<PaperProvider theme={paperTheme}>
+				<ThemeProvider
+					value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+				>
+					<PaperView style={{ paddingTop: insets.top, flex: 1 }}>
+						<View
+							style={{
+								flex: 1,
+								justifyContent: "center",
+								alignItems: "center",
+							}}
+						>
+							<ActivityIndicator size="large" />
+							<Text>Loading...</Text>
+						</View>
+					</PaperView>
+					<StatusBar
+						style={colorScheme === "dark" ? "light" : "dark"}
+						backgroundColor="transparent"
+					/>
+				</ThemeProvider>
+			</PaperProvider>
+		);
+	}
 
 	return (
 		<PaperProvider theme={paperTheme}>
@@ -61,7 +79,7 @@ function RootLayoutContent() {
 				<PaperView style={{ paddingTop: insets.top, flex: 1 }}>
 					<Stack>
 						<Stack.Screen
-							name="index"
+							name="(auth)"
 							options={{
 								headerShown: false,
 							}}
