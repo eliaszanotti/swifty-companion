@@ -98,6 +98,12 @@ function RootLayoutContent() {
 								presentation: "modal",
 							}}
 						/>
+						<Stack.Screen
+							name="+not-found"
+							options={{
+								headerShown: false,
+							}}
+						/>
 					</Stack>
 				</PaperView>
 				<StatusBar
