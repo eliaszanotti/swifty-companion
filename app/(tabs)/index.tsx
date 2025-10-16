@@ -41,7 +41,6 @@ function SearchContent() {
 							<EmptyState
 								title="No user found"
 								message={`No user found for "${searchQuery}"`}
-								icon="🔍"
 							/>
 						)}
 				</View>
