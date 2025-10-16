@@ -31,13 +31,9 @@ export default function UserProfileScreen({
 				title="Loading error"
 				message={
 					error ||
-					(userId
-						? "User not found"
-						: "Unable to load your profile")
+					(userId ? "User not found" : "Unable to load your profile")
 				}
-				onRetry={userId ? undefined : () => window.location.reload()}
-				dismissText={userId ? "Back" : undefined}
-				retryText={userId ? undefined : "Retry"}
+				onRetry={() => window.location.reload()}
 			/>
 		);
 	}

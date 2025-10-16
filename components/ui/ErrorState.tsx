@@ -5,50 +5,27 @@ import { Button, Card, Text } from "react-native-paper";
 interface ErrorStateProps {
 	title?: string;
 	message?: string;
-	onRetry?: () => void;
-	retryText?: string;
-	onDismiss?: () => void;
-	dismissText?: string;
+	onRetry: () => void;
 }
 
 export default function ErrorState({
-	title = "Erreur",
+	title = "Error",
 	message,
 	onRetry,
-	retryText = "Réessayer",
-	onDismiss,
-	dismissText = "Retour",
 }: ErrorStateProps) {
 	return (
 		<View style={styles.container}>
-			<Card mode="outlined" style={styles.errorCard}>
+			<Card mode="elevated" style={styles.errorCard}>
 				<Card.Content style={styles.cardContent}>
-					<Text variant="titleMedium" style={styles.errorTitle}>
-						{title}
-					</Text>
-					<Text variant="bodyMedium" style={styles.errorText}>
-						{message || "Une erreur est survenue"}
+					<Text variant="headlineMedium">{title}</Text>
+					<Text variant="bodyMedium">
+						{message || "An error occurred"}
 					</Text>
 
 					<View style={styles.actionsContainer}>
-						{onRetry && (
-							<Button
-								mode="contained"
-								onPress={onRetry}
-								style={styles.actionButton}
-							>
-								{retryText}
-							</Button>
-						)}
-						{onDismiss && (
-							<Button
-								mode="outlined"
-								onPress={onDismiss}
-								style={styles.actionButton}
-							>
-								{dismissText}
-							</Button>
-						)}
+						<Button mode="contained" onPress={onRetry}>
+							Retry
+						</Button>
 					</View>
 				</Card.Content>
 			</Card>
@@ -63,18 +40,13 @@ const styles = StyleSheet.create({
 		padding: 16,
 	},
 	errorCard: {
-		padding: 24,
+		padding: 16,
 	},
 	cardContent: {
-		alignItems: "center",
 		gap: 16,
 	},
 	errorTitle: {
 		textAlign: "center",
-	},
-	errorText: {
-		textAlign: "center",
-		color: "#B00020",
 	},
 	actionsContainer: {
 		gap: 8,
