@@ -1,8 +1,8 @@
 import { Config } from "@/constants/Config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as AuthSession from "expo-auth-session";
 import * as SecureStore from "expo-secure-store";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 type AuthContextType = {
 	isLoggedIn: boolean;
@@ -20,9 +20,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const TOKEN_KEY = "auth_token";
 const TOKEN_REFRESH_KEY = "auth_refresh_token";
 
-function getSecureStorage() {
-	return SecureStore.isAvailableAsync() ? SecureStore : AsyncStorage;
-}
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,8 +33,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 	const restoreToken = async () => {
 		try {
-			const storage = await getSecureStorage();
-			const storedToken = await storage.getItemAsync(TOKEN_KEY);
+			const isSecureStore = await SecureStore.isAvailableAsync();
+			const storedToken = await (isSecureStore
+				? SecureStore.getItemAsync(TOKEN_KEY)
+				: AsyncStorage.getItem(TOKEN_KEY));
 
 			if (storedToken) {
 				setAccessToken(storedToken);
@@ -53,10 +52,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 	const storeToken = async (token: string, refreshToken?: string) => {
 		try {
-			const storage = await getSecureStorage();
-			await storage.setItemAsync(TOKEN_KEY, token);
-			if (refreshToken) {
-				await storage.setItemAsync(TOKEN_REFRESH_KEY, refreshToken);
+			const isSecureStore = await SecureStore.isAvailableAsync();
+			if (isSecureStore) {
+				await SecureStore.setItemAsync(TOKEN_KEY, token);
+				if (refreshToken) {
+					await SecureStore.setItemAsync(TOKEN_REFRESH_KEY, refreshToken);
+				}
+			} else {
+				await AsyncStorage.setItem(TOKEN_KEY, token);
+				if (refreshToken) {
+					await AsyncStorage.setItem(TOKEN_REFRESH_KEY, refreshToken);
+				}
 			}
 			console.log("Token stored securely");
 		} catch (error) {
@@ -66,9 +72,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 	const clearTokens = async () => {
 		try {
-			const storage = await getSecureStorage();
-			await storage.deleteItemAsync(TOKEN_KEY);
-			await storage.deleteItemAsync(TOKEN_REFRESH_KEY);
+			const isSecureStore = await SecureStore.isAvailableAsync();
+			if (isSecureStore) {
+				await SecureStore.deleteItemAsync(TOKEN_KEY);
+				await SecureStore.deleteItemAsync(TOKEN_REFRESH_KEY);
+			} else {
+				await AsyncStorage.removeItem(TOKEN_KEY);
+				await AsyncStorage.removeItem(TOKEN_REFRESH_KEY);
+			}
 			console.log("Tokens cleared from secure storage");
 		} catch (error) {
 			console.error("Error clearing tokens:", error);
@@ -79,7 +90,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		restoreToken();
 	}, []);
 
-	const [_, response, promptAsync] = AuthSession.useAuthRequest(
+	const [, response, promptAsync] = AuthSession.useAuthRequest(
 		{
 			clientId: Config.CLIENT_ID,
 			scopes: ["public"],
