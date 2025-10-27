@@ -3,28 +3,28 @@
 ## Mandatory Requirements
 
 ### Core Functionality
-- [ ] App has at least 2 views (search and profile)
-- [ ] Implement OAuth2 authentication with 42 API
-- [ ] Handle all error cases (login not found, network error, etc.)
-- [ ] Second view displays login information when login exists
-- [ ] Display at least 4 user details (login, email, mobile, level, location, wallet, evaluations, etc.)
-- [ ] Display user profile picture
-- [ ] Display user's skills with level and percentage
-- [ ] Display user's projects (including failed ones)
-- [ ] Allow navigation back to first view
+- [x] App has at least 2 views (search and profile)
+- [x] Implement OAuth2 authentication with 42 API
+- [x] Handle all error cases (login not found, network error, etc.)
+- [x] Second view displays login information when login exists
+- [x] Display at least 4 user details (login, email, mobile, level, location, wallet, evaluations, etc.)
+- [x] Display user profile picture
+- [x] Display user's skills with level and percentage
+- [x] Display user's projects (including failed ones)
+- [x] Allow navigation back to first view
 - [ ] Use flexible/modern layout technique (constraints) for different screen sizes
-- [ ] Do not create token for each query - use intra oauth2 properly
+- [x] Do not create token for each query - use intra oauth2 properly
 
 ### Security & Configuration
-- [ ] Store credentials/API keys in local .env file
-- [ ] Ensure .env file is ignored by git
+- [x] Store credentials/API keys in local .env file
+- [x] Ensure .env file is ignored by git
 - [ ] Implement proper data privacy compliance
 
 ### Technical Implementation
-- [ ] Set up mobile programming language (Dart/Swift/Kotlin/Java)
-- [ ] Configure IDE (Android Studio recommended)
-- [ ] Implement mobile framework (Flutter)
-- [ ] Integrate with 42 API (api.intra.42.fr)
+- [x] Set up mobile programming language (Dart/Swift/Kotlin/Java)
+- [x] Configure IDE (Android Studio recommended)
+- [x] Implement mobile framework (Expo for React Native, Flutter, etc.)
+- [x] Integrate with 42 API (api.intra.42.fr)
 
 ## Bonus Requirements
 - [ ] Implement token refresh when expired
