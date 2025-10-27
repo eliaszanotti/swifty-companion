@@ -1,21 +1,17 @@
 import React from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, Text } from "react-native-paper";
 
 interface LoadingStateProps {
 	message?: string;
-	size?: "small" | "large";
-	color?: string;
 }
 
 export default function LoadingState({
-	message = "Chargement...",
-	size = "large",
-	color,
+	message = "Loading...",
 }: LoadingStateProps) {
 	return (
 		<View style={styles.container}>
-			<ActivityIndicator size={size} color={color} />
+			<ActivityIndicator />
 			<Text style={styles.text}>{message}</Text>
 		</View>
 	);
