@@ -3,7 +3,7 @@ import { useAuth } from "./useAuthContext";
 import { User } from "@/types/api";
 
 export function useProfileApi(userId?: string) {
-	const { accessToken } = useAuth();
+	const { accessToken, logout } = useAuth();
 	const [userInfo, setUserInfo] = useState<User | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -29,6 +29,10 @@ export function useProfileApi(userId?: string) {
 				if (response.ok) {
 					const userData = await response.json();
 					setUserInfo(userData);
+				} else if (response.status === 401) {
+					console.log("Token expired, logging out...");
+					await logout();
+					throw new Error("Session expired, please login again");
 				} else {
 					throw new Error(`Erreur API: ${response.status}`);
 				}
@@ -42,7 +46,7 @@ export function useProfileApi(userId?: string) {
 		};
 
 		fetchUserInfo();
-	}, [accessToken, userId]);
+	}, [accessToken, userId, logout]);
 
 	return {
 		userInfo,
