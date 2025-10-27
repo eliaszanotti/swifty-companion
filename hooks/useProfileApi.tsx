@@ -8,45 +8,53 @@ export function useProfileApi(userId?: string) {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	useEffect(() => {
+	const handleAuthError = async (status: number) => {
+		if (status === 401) {
+			setError("Session expired, please login again");
+			setUserInfo(null);
+			await logout();
+			return true;
+		}
+		return false;
+	};
+
+	const fetchUserInfo = async () => {
 		if (!accessToken) return;
 
-		const fetchUserInfo = async () => {
-			setLoading(true);
-			setError(null);
+		setLoading(true);
+		setError(null);
 
-			try {
-				const endpoint = userId
-					? `https://api.intra.42.fr/v2/users/${userId}`
-					: "https://api.intra.42.fr/v2/me";
+		try {
+			const endpoint = userId
+				? `https://api.intra.42.fr/v2/users/${userId}`
+				: "https://api.intra.42.fr/v2/me";
 
-				const response = await fetch(endpoint, {
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-					},
-				});
+			const response = await fetch(endpoint, {
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+			});
 
-				if (response.ok) {
-					const userData = await response.json();
-					setUserInfo(userData);
-				} else if (response.status === 401) {
-					console.log("Token expired, logging out...");
-					await logout();
-					throw new Error("Session expired, please login again");
-				} else {
-					throw new Error(`Erreur API: ${response.status}`);
-				}
-			} catch (error) {
-				console.error("Error fetching user info:", error);
-				setError("Erreur lors de la récupération du profil");
-				setUserInfo(null);
-			} finally {
-				setLoading(false);
+			if (response.ok) {
+				const userData = await response.json();
+				setUserInfo(userData);
+			} else if (await handleAuthError(response.status)) {
+				return;
+			} else {
+				throw new Error(`API error: ${response.status}`);
 			}
-		};
+		} catch (error) {
+			console.error("Error fetching user info:", error);
+			setError("Failed to fetch user profile");
+			setUserInfo(null);
+		} finally {
+			setLoading(false);
+		}
+	};
 
+	useEffect(() => {
 		fetchUserInfo();
-	}, [accessToken, userId, logout]);
+	}, [accessToken, userId]);
 
 	return {
 		userInfo,
