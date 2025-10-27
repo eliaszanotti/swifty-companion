@@ -1,4 +1,5 @@
 import PaperView from "@/components/PaperView";
+import LoadingState from "@/components/ui/LoadingState";
 import { DarkPaperTheme, LightPaperTheme } from "@/constants/PaperTheme";
 import { AuthProvider, useAuth } from "@/hooks/useAuthContext";
 import { useColorScheme } from "@/hooks/useColorScheme";
@@ -11,7 +12,6 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { ActivityIndicator, Text, View } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import {
 	SafeAreaProvider,
@@ -51,16 +51,7 @@ function RootLayoutContent() {
 					value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
 				>
 					<PaperView style={{ paddingTop: insets.top, flex: 1 }}>
-						<View
-							style={{
-								flex: 1,
-								justifyContent: "center",
-								alignItems: "center",
-							}}
-						>
-							<ActivityIndicator size="large" />
-							<Text>Loading...</Text>
-						</View>
+						<LoadingState />
 					</PaperView>
 					<StatusBar
 						style={colorScheme === "dark" ? "light" : "dark"}
